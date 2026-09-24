@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Stock Master Academy | Adaptive AI Tutor Edition</title>
+  <style>
+    /* ==========================================================================
+       1. ROOT DESIGN SYSTEM
+       ========================================================================== */
+    :root {
+      --bg-base: #0B0E14;
+      --bg-surface: #121824;
+      --bg-card: #182234;
+      --bg-card-hover: #1F2B42;
+      --border-subtle: #24324D;
+      --border-focus: #3B82F6;
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --primary: #3B82F6;
+      --primary-hover: #2563EB;
+      --primary-light: rgba(59, 130, 246, 0.15);
+      --success: #10B981;
+      --success-light: rgba(16, 185, 129, 0.15);
+      --danger: #EF4444;
+      --danger-light: rgba(239, 68, 68, 0.15);
+      --warning: #F59E0B;
+      --warning-light: rgba(245, 158, 11, 0.15);
+      --accent-purple: #8B5CF6;
+      --accent-purple-light: rgba(139, 92, 246, 0.15);
+      --accent-teal: #14B8A6;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    #app-container { display: flex; min-height: 100vh; width: 100vw; position: relative; }
+
+    /* Sidebar Navigation */
+    #sidebar {
+      width: 280px;
+      background-color: var(--bg-surface);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 50;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .brand-section { padding: 18px 20px; border-bottom: 1px solid var(--border-subtle); }
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-badge {
+      background: linear-gradient(135deg, var(--primary), var(--accent-purple));
+      color: #fff;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .brand-subtitle { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+
+    .nav-scroll { flex: 1; overflow-y: auto; padding: 12px 8px; }
+    .nav-group-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      padding: 12px 12px 6px 12px;
+      font-weight: 700;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.15s ease;
+      min-height: 44px;
+      margin-bottom: 2px;
+      border: 1px solid transparent;
+      user-select: none;
+    }
+    .nav-item:hover { background-color: var(--bg-card); color: var(--text-main); }
+    .nav-item.active {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border-color: rgba(59, 130, 246, 0.3);
+      font-weight: 600;
+    }
+    .nav-item.tutor-highlight {
+      border-color: rgba(139, 92, 246, 0.4);
+      background: linear-gradient(90deg, rgba(139, 92, 246, 0.1), transparent);
+    }
+    .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .sidebar-footer { padding: 14px 16px; border-top: 1px solid var(--border-subtle); background-color: var(--bg-surface); }
+    .thinking-loop-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      font-size: 0.75rem;
+    }
+    .thinking-loop-box summary { cursor: pointer; font-weight: 700; color: var(--warning); outline: none; }
+    .thinking-loop-box ol { margin-top: 8px; padding-left: 18px; color: var(--text-muted); line-height: 1.5; }
+
+    #main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    #top-header {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+    .menu-toggle-btn {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      min-width: 44px;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+    }
+    .search-wrapper { position: relative; max-width: 380px; width: 100%; }
+    .search-input {
+      width: 100%;
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      padding: 9px 12px 9px 36px;
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      min-height: 44px;
+    }
+    .search-input:focus { border-color: var(--border-focus); }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-dim); pointer-events: none; }
+
+    .header-stats { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .stat-pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .view-container {
+      padding: 20px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      flex: 1;
+      display: none;
+    }
+    .view-container.active { display: block; animation: fadeIn 0.2s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* UI Cards & Elements */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      min-height: 44px;
+      user-select: none;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: var(--bg-card); border-color: var(--border-subtle); color: var(--text-main); }
+    .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--text-muted); }
+    .btn-ai {
+      background: linear-gradient(135deg, var(--accent-purple), var(--primary));
+      color: #fff;
+    }
+    .btn-ai:hover { opacity: 0.92; }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; min-height: 38px; }
+
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
+    .form-control {
+      width: 100%;
+      background: var(--bg-base);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      min-height: 44px;
+    }
+    .form-control:focus { border-color: var(--border-focus); }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    .progress-bar-wrapper { height: 8px; background: var(--bg-base); border-radius: 999px; overflow: hidden; margin: 8px 0; }
+    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent-teal)); width: 0%; transition: width 0.3s ease; }
+
+    .sim-tag {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 2px 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      display: inline-block;
+      letter-spacing: 0.05em;
+    }
+    .ai-tag {
+      background: var(--accent-purple-light);
+      color: #C4B5FD;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      padding: 2px 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      display: inline-block;
+    }
+
+    .callout {
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      margin: 14px 0;
+      font-size: 0.875rem;
+      border-left: 4px solid;
+    }
+    .callout-info { background: var(--primary-light); border-color: var(--primary); color: #BFDBFE; }
+    .callout-warning { background: var(--warning-light); border-color: var(--warning); color: #FDE68A; }
+    .callout-danger { background: var(--danger-light); border-color: var(--danger); color: #FECACA; }
+    .callout-success { background: var(--success-light); border-color: var(--success); color: #A7F3D0; }
+    .callout-ai { background: var(--accent-purple-light); border-color: var(--accent-purple); color: #DDD6FE; }
+
+    .tab-nav {
+      display: flex;
+      gap: 6px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+    .tab-btn {
+      padding: 8px 14px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+    .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    .app-disclaimer {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-align: center;
+      padding: 14px 20px;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      margin-top: auto;
+      line-height: 1.5;
+    }
+
+    #sidebar-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 45; }
+
+    /* Socratic Dialogue Chat Layout */
+    .socratic-chat-box {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 16px 0;
+      max-height: 460px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .chat-bubble {
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      max-width: 85%;
+    }
+    .chat-tutor {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--accent-purple);
+      align-self: flex-start;
+    }
+    .chat-user {
+      background: var(--primary-light);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      align-self: flex-end;
+      color: #DBEAFE;
+    }
+
+    @media (max-width: 900px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      #sidebar { position: fixed; left: 0; top: 0; bottom: 0; transform: translateX(-100%); }
+      #sidebar.open { transform: translateX(0); }
+      #sidebar.open + #sidebar-backdrop { display: block; }
+      .menu-toggle-btn { display: inline-flex; }
+      .header-stats { display: none; }
+      .view-container { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="app-container">
+  <!-- SIDEBAR NAVIGATION -->
+  <aside id="sidebar">
+    <div class="brand-section">
+      <div class="brand-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+        STOCK MASTER
+        <span class="brand-badge">AI TUTOR</span>
+      </div>
+      <div class="brand-subtitle">From Beginner to Independent Investor</div>
+    </div>
+
+    <nav class="nav-scroll" id="sidebar-nav">
+      <div class="nav-group-title">Personal AI Tutor</div>
+      <div class="nav-item tutor-highlight active" data-view="tutor-panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M12 7v2m0 4h.01"></path></svg>
+        Panel Tutor & Diagnostik
+      </div>
+      <div class="nav-item tutor-highlight" data-view="socratic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+        Mode Sokrates (Think)
+      </div>
+
+      <div class="nav-group-title">Kurikulum & Latihan</div>
+      <div class="nav-item" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        Dashboard Belajar
+      </div>
+      <div class="nav-item" data-view="curriculum">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        Kurikulum Lengkap (17 Lvl)
+      </div>
+      <div class="nav-item" data-view="calculators">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01"></path></svg>
+        FinCalc Lab Tools
+      </div>
+      <div class="nav-item" data-view="workbench">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+        Stock Analysis Lab
+      </div>
+      <div class="nav-item" data-view="journal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+        Jurnal Tesis Investasi
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <details class="thinking-loop-box">
+        <summary>🧠 Investor Thinking Loop</summary>
+        <ol>
+          <li>Apa model bisnis utamanya?</li>
+          <li>Bagaimana menghasilkan kas riil?</li>
+          <li>Mengapa bisnis ini bisa bertumbuh?</li>
+          <li>Apa risiko yang bisa menghancurkan tesis?</li>
+          <li>Berapa beban utang berbunganya?</li>
+          <li>Berapa rentang nilai intrinsiknya?</li>
+          <li>Berapa harga pasar hari ini?</li>
+          <li>Berapa alokasi risiko yang aman?</li>
+          <li>Kapan saya harus keluar posisi?</li>
+        </ol>
+      </details>
+    </div>
+  </aside>
+  <div id="sidebar-backdrop"></div>
+
+  <!-- MAIN VIEWPORT -->
+  <main id="main-content">
+    <header id="top-header">
+      <div class="header-left">
+        <button class="menu-toggle-btn" id="menu-toggle" aria-label="Toggle Navigation">
+          <svg width="22" height="22" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="search-wrapper">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="global-search" class="search-input" placeholder="Cari materi, konsep, atau evaluasi tutor..." autocomplete="off">
+        </div>
+      </div>
+      <div class="header-stats">
+        <div class="stat-pill" title="Tingkat Kesulitan Adaptif">
+          <span style="color:var(--accent-purple)">🎯</span>
+          <span id="header-difficulty">Tingkat: Standar</span>
+        </div>
+        <div class="stat-pill" title="Total Experience Points">
+          <span style="color:var(--warning)">⚡</span>
+          <span id="header-xp">0 XP</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- VIEW 1: AI TUTOR PANEL (CORE UPGRADE) -->
+    <section id="view-tutor-panel" class="view-container active">
+      <div style="margin-bottom: 20px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <h1 style="font-size: 1.5rem; font-weight: 800;">Personal AI Financial Tutor</h1>
+          <span class="ai-tag">COGNITIVE ENGINE V1.2</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">
+          Menganalisis kesalahan kuis Anda, kebiasaan kalkulator, serta melatih pola penalaran objektif tanpa spekulasi masa depan.
+        </p>
+      </div>
+
+      <!-- Live Tutor Diagnosis Card -->
+      <div class="card" style="border: 1px solid rgba(139, 92, 246, 0.4); background: linear-gradient(180deg, var(--bg-surface), rgba(139, 92, 246, 0.04));">
+        <div class="card-title">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="width:10px; height:10px; border-radius:50%; background:var(--success); box-shadow:0 0 8px var(--success);"></div>
+            <span>Diagnostik Tutor Real-Time</span>
+          </div>
+          <button class="btn btn-sm btn-secondary" onclick="SMA.refreshTutorAnalysis()">Segarkan Analisis Tutor</button>
+        </div>
+        
+        <div id="tutor-diagnosis-output">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Competency Matrix -->
+      <div class="card">
+        <div class="card-title">Matriks Penguasaan 5 Dimensi Analisis Saham</div>
+        <div class="grid-3" id="tutor-competency-grid">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Actionable Learning Path Recommended by Tutor -->
+      <div class="card">
+        <div class="card-title">Rencana Belajar Adaptif Personal Anda</div>
+        <div id="tutor-recommended-actions" style="display:flex; flex-direction:column; gap:10px;"></div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: SOCRATIC MODE ("THINK LIKE AN INVESTOR") -->
+    <section id="view-socratic" class="view-container">
+      <div style="margin-bottom: 16px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <h1 style="font-size: 1.5rem; font-weight: 800;">Mode Sokrates: Think Like an Investor</h1>
+          <span class="ai-tag">INDEPENDENT REASONING LAB</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">
+          Tutor tidak akan memberi tahu Anda saham apa yang harus dibeli. Tutor akan membongkar asumsi tersembunyi Anda dan menguji ketangguhan logika Anda.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>Pilih Skenario Kasus Penyelidikan:</span>
+          <span class="sim-tag">DIALECTIC INQUIRY</span>
+        </div>
+        <div class="form-group">
+          <select id="socratic-case-select" class="form-control" onchange="SMA.loadSocraticCase(this.value)">
+            <option value="case-1">Kasus 1: "Saham ini murah karena PER-nya cuma 5x"</option>
+            <option value="case-2">Kasus 2: "Pendapatan naik 30% per tahun, pasti bisnis hebat!"</option>
+            <option value="case-3">Kasus 3: "Harga saham turun 35%, saatnya Average Down"</option>
+            <option value="case-4">Kasus 4: "Produknya terkenal di mana-mana, pasti punya Economic Moat"</option>
+          </select>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="socratic-chat-box" id="socratic-chat-history">
+          <!-- Bubbles injected dynamically -->
+        </div>
+
+        <!-- Socratic Question Prompts -->
+        <div id="socratic-interaction-panel" style="margin-top:16px; border-top:1px solid var(--border-subtle); padding-top:16px;">
+          <div class="form-label" id="socratic-prompt-label">Pilih respon analisis kritis Anda:</div>
+          <div id="socratic-options-container" style="display:flex; flex-direction:column; gap:8px;">
+            <!-- Buttons injected dynamically -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: DASHBOARD -->
+    <section id="view-dashboard" class="view-container">
+      <div class="grid-4" style="margin-bottom: 20px;">
+        <div class="card" style="margin-bottom:0;">
+          <div class="form-label">PROGRES BELAJAR</div>
+          <div style="font-size: 1.75rem; font-weight: 800;" id="dash-progress-pct">0%</div>
+          <div class="progress-bar-wrapper"><div class="progress-bar-fill" id="dash-progress-bar"></div></div>
+          <div style="font-size: 0.75rem; color: var(--text-muted);" id="dash-progress-count">0 / 17 Level Selesai</div>
+        </div>
+        <div class="card" style="margin-bottom:0;">
+          <div class="form-label">RATA-RATA AKURASI KUIS</div>
+          <div style="font-size: 1.75rem; font-weight: 800; color: var(--success);" id="dash-quiz-avg">0%</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 10px;">Akurasi penalaran objektif</div>
+        </div>
+        <div class="card" style="margin-bottom:0;">
+          <div class="form-label">TOPIK PALING KUAT</div>
+          <div style="font-size: 1.05rem; font-weight: 700; color: var(--accent-teal);" id="dash-strong-topic">-</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Skor penguasaan tertinggi</div>
+        </div>
+        <div class="card" style="margin-bottom:0;">
+          <div class="form-label">EVALUASI TUTOR</div>
+          <div style="font-size: 1.05rem; font-weight: 700; color: var(--warning);" id="dash-weak-topic">-</div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">Topik perlu latihan tambahan</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Mulai Langkah Selanjutnya</div>
+          <p style="color:var(--text-muted); margin-bottom: 16px; font-size: 0.9rem;" id="dash-next-desc">Lanjutkan kurikulum atau konsultasikan hasil belajar ke Tutor.</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-ai" onclick="SMA.navigate('tutor-panel')">Buka Diagnostik AI Tutor →</button>
+            <button class="btn btn-secondary" onclick="SMA.navigate('curriculum')">Daftar Modul</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Lencana Evaluasi Mandiri</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;" id="dash-badges-container"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: CURRICULUM -->
+    <section id="view-curriculum" class="view-container">
+      <div style="margin-bottom: 20px;">
+        <h1 style="font-size: 1.5rem; font-weight: 800;">Silabus Lengkap: Level 0 s/d Level 16</h1>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">Tingkat kesulitan kuis di tiap modul beradaptasi otomatis terhadap riwayat analisis Anda.</p>
+      </div>
+      <div id="curriculum-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+    </section>
+
+    <!-- VIEW 5: LESSON DETAIL VIEW -->
+    <section id="view-lesson" class="view-container">
+      <div style="margin-bottom: 14px;">
+        <button class="btn btn-secondary btn-sm" onclick="SMA.navigate('curriculum')">← Kembali ke Silabus</button>
+      </div>
+      <article class="card" id="lesson-article" style="padding: 24px;"></article>
+    </section>
+
+    <!-- VIEW 6: CALCULATORS -->
+    <section id="view-calculators" class="view-container">
+      <h1 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">FinCalc Lab Tools</h1>
+      <p style="color: var(--text-muted); margin-bottom: 16px; font-size:0.88rem;">Setiap penggunaan kalkulator dicatat oleh AI Tutor untuk mengevaluasi pemahaman matematika valuasi Anda.</p>
+      <div class="tab-nav" id="calc-tab-nav"></div>
+      <div id="calc-container" class="card"></div>
+    </section>
+
+    <!-- VIEW 7: WORKBENCH -->
+    <section id="view-workbench" class="view-container">
+      <h1 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">Stock Analysis Workbench</h1>
+      <p style="color: var(--text-muted); margin-bottom: 16px; font-size:0.88rem;">Laboratorium pembongkaran data keuangan tanpa rekomendasi instan Beli/Jual.</p>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Parameter Emiten (Simulasi)</div>
+          <div class="grid-2">
+            <div class="form-group"><label class="form-label">Harga Saham (Rp)</label><input type="number" id="wb-price" class="form-control" value="2400" min="1"></div>
+            <div class="form-group"><label class="form-label">Saham Beredar (Lembar)</label><input type="number" id="wb-shares" class="form-control" value="10000000000" min="1"></div>
+            <div class="form-group"><label class="form-label">Pendapatan (Rp Miliar)</label><input type="number" id="wb-rev" class="form-control" value="45000"></div>
+            <div class="form-group"><label class="form-label">Laba Bersih (Rp Miliar)</label><input type="number" id="wb-net" class="form-control" value="5400"></div>
+            <div class="form-group"><label class="form-label">Total Ekuitas (Rp Miliar)</label><input type="number" id="wb-equity" class="form-control" value="22000"></div>
+            <div class="form-group"><label class="form-label">Total Utang (Rp Miliar)</label><input type="number" id="wb-debt" class="form-control" value="6000"></div>
+          </div>
+          <button class="btn btn-primary" style="width:100%;" onclick="SMA.calculateWorkbench()">Evaluasi Metrik Rasio</button>
+        </div>
+        <div class="card" id="wb-results-card">
+          <div class="card-title">Hasil Observasi Rasio Kunci</div>
+          <div class="grid-2" style="margin-bottom:12px;">
+            <div><span class="form-label">PER Terhitung</span><strong id="wb-res-per" style="color:var(--primary); font-size:1.1rem;">-</strong></div>
+            <div><span class="form-label">PBV Terhitung</span><strong id="wb-res-pbv" style="color:var(--primary); font-size:1.1rem;">-</strong></div>
+            <div><span class="form-label">ROE Terhitung</span><strong id="wb-res-roe" style="color:var(--success); font-size:1.1rem;">-</strong></div>
+            <div><span class="form-label">DER Terhitung</span><strong id="wb-res-der" style="color:var(--warning); font-size:1.1rem;">-</strong></div>
+          </div>
+          <div class="card-title" style="font-size:0.88rem;">Pertanyaan Investigasi Investor:</div>
+          <ul id="wb-investigation-questions" style="padding-left:18px; font-size:0.83rem; color:var(--text-muted); display:flex; flex-direction:column; gap:6px;"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 8: JOURNAL -->
+    <section id="view-journal" class="view-container">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+        <h1 style="font-size: 1.5rem; font-weight: 800;">Jurnal Tesis Investasi</h1>
+        <button class="btn btn-primary" onclick="SMA.openNewJournalModal()">+ Tambah Tesis Baru</button>
+      </div>
+      <div id="journal-entries-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+    </section>
+
+    <!-- FOOTER DISCLAIMER -->
+    <footer class="app-disclaimer">
+      <strong>Pemberitahuan Edukasi Finansial:</strong> Stock Master Academy bersama modul AI Tutor dirancang murni untuk tujuan simulasi dan pelatihan penalaran independen. Tutor ini <strong>tidak pernah</strong> meramalkan harga saham masa depan, bukan penasihat keuangan berlisensi, dan tidak memberikan instruksi beli atau jual saham apapun.
+    </footer>
+  </main>
+</div>
+
+<!-- ==========================================================================
+     LOGIC ENGINE (TUTOR COGNITIVE CORE + SOCRATIC MODE)
+     ========================================================================== -->
+<script>
+/**
+ * STOCK MASTER ACADEMY - ADAPTIVE AI TUTOR ENGINE
+ * Developed without external API calls. Powered by deterministic rule-based heuristic trees.
+ */
+
+// 1. STATE & EXTENDED TELEMETRY MANAGEMENT
+const SMA_DEFAULT_STATE = {
+  version: "2.0-ai-tutor",
+  xp: 0,
+  levelIndex: 0,
+  streakDays: 1,
+  completedLessons: {},
+  quizScores: {},
+  // Topic Accuracy Mastery
+  topicMastery: {
+    mindset: 80,
+    financialStatements: 75,
+    ratios: 70,
+    valuation: 50,
+    risk: 65,
+    technical: 70
+  },
+  // Behavioral Telemetry for AI Tutor
+  mistakeLog: [
+    { topic: "valuation", mistake: "Menghubungkan PER rendah secara otomatis dengan saham murah tanpa mengecek laba anjlok." },
+    { topic: "valuation", mistake: "Sensitivitas terminal growth dan WACC pada DCF belum dikoreksi." },
+    { topic: "financialStatements", mistake: "Menyamakan kenaikan laba bersih akrual dengan kesehatan arus kas fisik riil." }
+  ],
+  calculatorUsage: {
+    "calc-compound": 4,
+    "calc-per": 7,
+    "calc-dcf": 2,
+    "calc-positionsize": 1
+  },
+  adaptiveDifficultyLevel: "STANDARD", // BEGINNER, STANDARD, ADVANCED
+  badges: ["First Lesson"],
+  journal: [
+    {
+      id: "j-sample",
+      date: new Date().toLocaleDateString("id-ID"),
+      ticker: "PT Nusantara Consumer Tbk (NSCN)",
+      thesis: "Bisnis produk konsumsi harian defensif dengan konversi laba ke Free Cash Flow di atas 90%.",
+      assumptions: "Pertumbuhan omzet 7-9% per tahun, margin laba bersih bertahan di kisaran 12%.",
+      invalidation: "Jika harga bahan baku melonjak permanen tanpa kemampuan menaikkan harga jual (loss of pricing power).",
+      emotion: "Tenang & Rasional"
+    }
+  ]
+};
+
+class StateManager {
+  constructor() {
+    this.storageKey = "STOCK_MASTER_ACADEMY_TUTOR_V2";
+    this.state = this.loadState();
+  }
+
+  loadState() {
+    try {
+      const raw = localStorage.getItem(this.storageKey);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return {
+          ...SMA_DEFAULT_STATE,
+          ...parsed,
+          topicMastery: { ...SMA_DEFAULT_STATE.topicMastery, ...(parsed.topicMastery || {}) },
+          mistakeLog: Array.isArray(parsed.mistakeLog) ? parsed.mistakeLog : SMA_DEFAULT_STATE.mistakeLog,
+          calculatorUsage: { ...SMA_DEFAULT_STATE.calculatorUsage, ...(parsed.calculatorUsage || {}) }
+        };
+      }
+    } catch (e) {
+      console.warn("Storage warning: Using memory state fallback.", e);
+    }
+    return JSON.parse(JSON.stringify(SMA_DEFAULT_STATE));
+  }
+
+  save() {
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify(this.state));
+    } catch (e) {
+      console.warn("Could not save to localStorage", e);
+    }
+    this.syncUI();
+  }
+
+  recordMistake(topic, mistakeText) {
+    this.state.mistakeLog.unshift({ topic, mistake: mistakeText, timestamp: Date.now() });
+    if (this.state.mistakeLog.length > 15) this.state.mistakeLog.pop();
+    this.updateAdaptiveDifficulty();
+    this.save();
+  }
+
+  recordCalcUsage(calcId) {
+    this.state.calculatorUsage[calcId] = (this.state.calculatorUsage[calcId] || 0) + 1;
+    this.save();
+  }
+
+  updateAdaptiveDifficulty() {
+    const scores = Object.values(this.state.topicMastery);
+    const avg = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 70;
+
+    if (avg > 85) this.state.adaptiveDifficultyLevel = "ADVANCED";
+    else if (avg < 60) this.state.adaptiveDifficultyLevel = "BEGINNER";
+    else this.state.adaptiveDifficultyLevel = "STANDARD";
+  }
+
+  syncUI() {
+    const elXp = document.getElementById("header-xp");
+    const elDiff = document.getElementById("header-difficulty");
+    if (elXp) elXp.innerText = `${this.state.xp} XP`;
+    if (elDiff) {
+      const label = this.state.adaptiveDifficultyLevel === "ADVANCED" ? "Tinggi (Analis)" :
+                    (this.state.adaptiveDifficultyLevel === "BEGINNER" ? "Dasar (Review)" : "Standar");
+      elDiff.innerText = `Tingkat: ${label}`;
+    }
+  }
+}
+
+// 2. RULE-BASED AI TUTOR ENGINE
+class TutorEngine {
+  static analyzeUser(state) {
+    const mastery = state.topicMastery;
+    const sortedTopics = Object.entries(mastery).sort((a, b) => b[1] - a[1]);
+    const strongest = sortedTopics[0];
+    const weakest = sortedTopics[sortedTopics.length - 1];
+
+    // Identify Specific Repeated Pitfalls
+    const mistakes = state.mistakeLog.slice(0, 3);
+
+    // Heuristic Feedback Generator
+    let diagnosisSummary = "";
+    if (weakest[0] === "valuation") {
+      diagnosisSummary = `Pemahaman akuntansi dan operasional Anda sudah berkembang dengan baik, namun <strong>Valuasi Saham</strong> (${weakest[1]}%) adalah area yang paling rentan. Anda cenderung menilai saham semata-mata dari kelipatan PER tanpa menguji ketahanan margin dan sensitivitas suku bunga diskonto.`;
+    } else if (weakest[0] === "financialStatements") {
+      diagnosisSummary = `Anda memiliki insting bisnis yang baik, namun <strong>Pembacaan Laporan Keuangan</strong> (${weakest[1]}%) masih memerlukan ketelitian forensik. Ingat: Laba akrual bisa dibentuk oleh kebijakan akuntansi, tetapi kas operasional fisik (CFO) mencerminkan daya tahan sebenarnya.`;
+    } else {
+      diagnosisSummary = `Progres belajar Anda berjalan konsisten. Fokus penguatan saat ini ada pada pilar <strong>${weakest[0].toUpperCase()}</strong> (${weakest[1]}%) agar penalaran investasi Anda menyeluruh dari hulu ke hilir.`;
+    }
+
+    // Prescriptive Learning Actions
+    const recommendations = [];
+    if (weakest[0] === "valuation") {
+      recommendations.push({
+        title: "Pelajari Ulang Teori DCF & Margin of Safety",
+        desc: "Kaji ulang Level 8. Pahami mengapa perubahan WACC 1% dapat mengubah nilai intrinsik secara signifikan.",
+        action: () => SMA.openLesson("lvl-8")
+      });
+      recommendations.push({
+        title: "Praktik di Laboratorium DCF",
+        desc: "Buka FinCalc DCF Lab dan amati tabel sensitivitas dengan berbagai skenario pertumbuhan.",
+        action: () => { SMA.navigate("calculators"); SMA.selectCalculator("calc-dcf"); }
+      });
+    } else if (weakest[0] === "financialStatements") {
+      recommendations.push({
+        title: "Forensik Kas: Level 3 & Level 14",
+        desc: "Latih kembali deteksi Red Flags perbedaan antara laba bersih akrual dengan Arus Kas Operasi.",
+        action: () => SMA.openLesson("lvl-3")
+      });
+    } else {
+      recommendations.push({
+        title: "Uji Logika di Mode Sokrates",
+        desc: "Uji asumsi penalaran Anda dalam studi kasus dialektika investor mandiri.",
+        action: () => SMA.navigate("socratic")
+      });
+    }
+
+    return {
+      strongest,
+      weakest,
+      diagnosisSummary,
+      recentMistakes: mistakes,
+      recommendations,
+      difficulty: state.adaptiveDifficultyLevel
+    };
+  }
+}
+
+// 3. SOCRATIC MODE SCENARIO DATABASE
+const SOCRATIC_CASES = {
+  "case-1": {
+    title: "Kasus: Saham Murah karena PER 5x",
+    initialTutor: "Anda menemukan saham PT Baja Konstruksi dengan harga Rp 500 dan EPS Rp 100, sehingga PER-nya 5x (sangat rendah dibanding rata-rata bursa 15x). Pemikiran pertama Anda: 'Ini saham murah, harus segera dibeli.'\n\nSebagai analis independen: <strong>Asumsi terselubung apa yang sebenarnya sedang Anda buat?</strong>",
+    steps: [
+      {
+        userPrompt: "Asumsi apa yang sedang Anda buat?",
+        options: [
+          { text: "Saya berasumsi EPS Rp 100 tersebut bersifat normal, berkelanjutan, dan bukan keuntungan temporer.", correct: true, feedback: "Tepat sekali! Anda mengasumsikan laba masa lalu tersebut akan bertahan di masa depan. Mari kita periksa faktanya." },
+          { text: "Saya berasumsi bursa saham pasti sedang salah menetapkan harga.", correct: false, feedback: "Itu kesimpulan spekulatif. Pasar seringkali mendiskon saham karena mencium adanya penurunan laba di kuartal mendatang." }
+        ],
+        nextTutor: "Setelah memeriksa laporan keuangan, ternyata laba Rp 100 per saham itu berasal dari <strong>penjualan tanah pabrik satu kali (one-off gain)</strong>, sementara laba operasional riilnya minus. <strong>Apa kesimpulan kritis Anda sekarang?</strong>"
+      },
+      {
+        userPrompt: "Apa kesimpulan kritis Anda?",
+        options: [
+          { text: "PER 5x adalah perangkap nilai (Value Trap). Laba operasional riilnya merugi sehingga bisnis ini sebenarnya mahal.", correct: true, feedback: "Brilian! Anda telah berpikir seperti analis forensik: membedah kualitas laba sebelum terpukau angka kelipatan rasio." },
+          { text: "Tetap murah karena kas perusahaan bertambah dari hasil jual tanah.", correct: false, feedback: "Perusahaan tidak bisa menjual tanah pabriknya setiap tahun untuk mencetak laba. Bisnis inti mereka tetap berdarah." }
+        ],
+        nextTutor: "Penyelidikan Selesai: Anda telah berhasil mengubah pola pikir dari 'Saham murah karena PER kecil' menjadi 'Periksa kualitas dan keberlanjutan laba sebelum membeli'."
+      }
+    ]
+  },
+  "case-2": {
+    title: "Kasus: Pendapatan Naik 30% Per Tahun",
+    initialTutor: "Perusahaan PT Ekpress Ritel melaporkan pertumbuhan omzet pendapatan 30% setahun selama 3 tahun berturut-turut. Anda merasa bisnis ini sangat prima.\n\n<strong>Bukti finansial apa yang wajib Anda periksa berikutnya sebelum menyimpulkan bisnis ini sehat?</strong>",
+    steps: [
+      {
+        userPrompt: "Bukti finansial apa yang wajib Anda periksa?",
+        options: [
+          { text: "Apakah pertumbuhan omzet tersebut menghasilkan Free Cash Flow atau hanya membakar modal kerja dan utang?", correct: true, feedback: "Sangat tajam! Banyak perusahaan tumbuh cepat dengan cara jor-joran memberi tempo piutang tanpa pernah menagih kas riil." },
+          { text: "Berapa banyak gerai baru yang dibuka bulan ini.", correct: false, feedback: "Membuka gerai butuh biaya modal (CAPEX). Jika gerai baru tidak menghasilkan kas positif, itu menjadi beban neraca." }
+        ],
+        nextTutor: "Ternyata Arus Kas Operasi (CFO) perusahaan bernilai negatif selama 3 tahun, dan utang bank jangka pendek meningkat 200% demi membiayai operasional. <strong>Apa risiko utama yang Anda identifikasi?</strong>"
+      },
+      {
+        userPrompt: "Apa risiko utama yang teridentifikasi?",
+        options: [
+          { text: "Risiko likuiditas dan kebangkrutan: pertumbuhan tidak didanai oleh keuntungan internal melainkan gali lubang tutup lubang utang.", correct: true, feedback: "Tepat! Pertumbuhan tanpa kas positif adalah resep krisis likuiditas." },
+          { text: "Tidak ada risiko, bank pasti akan terus memberi pinjaman.", correct: false, feedback: "Saat ekonomi lesu atau suku bunga naik, bank akan menolak restrukturisasi utang." }
+        ],
+        nextTutor: "Refleksi Sokrates Selesai: Anda membuktikan bahwa 'Pertumbuhan omzet tidak sama dengan penciptaan nilai pemegang saham'."
+      }
+    ]
+  }
+};
+
+// 4. CURRICULUM DATABASE
+const CURRICULUM_DATA = [
+  {
+    id: "lvl-0",
+    levelNumber: 0,
+    title: "Level 0: Financial Mindset & Compounding",
+    topicKey: "mindset",
+    desc: "Membedakan investasi produktif dengan judi, memahami inflasi dan eksponensial bunga berbunga.",
+    objective: "Membangun disiplin modal jangka panjang.",
+    content: `<p>Uang tunai tergerus inflasi setiap tahun. Investasi adalah menempatkan modal pada aset yang menghasilkan nilai tambah ekonomi riil.</p>`,
+    quiz: {
+      question: "Apa perbedaan paling mendasar antara investor saham dengan spekulan jangka pendek?",
+      options: [
+        "Investor menganalisis kinerja ekonomi dan arus kas bisnis riil, sedangkan spekulan bertaruh pada fluktuasi harga sesaat",
+        "Investor menggunakan komputer lebih canggih",
+        "Investor tidak pernah mengalami penurunan nilai portofolio",
+        "Tidak ada perbedaan"
+      ],
+      correct: 0,
+      explanation: "Investor memandang saham sebagai porsi kepemilikan bisnis yang menghasilkan dividen dan arus kas jangka panjang."
+    }
+  },
+  {
+    id: "lvl-3",
+    levelNumber: 3,
+    title: "Level 3: Membaca Laporan Keuangan (Financial Statements)",
+    topicKey: "financialStatements",
+    desc: "Membongkar Laba Rugi, Neraca, dan Arus Kas fisik (Operating Cash Flow vs Net Income).",
+    objective: "Mendeteksi denyut nadi kesehatan kas perusahaan.",
+    content: `<p>Laba akrual di Income Statement mencatat pengakuan pendapatan, namun Cash Flow Statement mencatat kas riil yang masuk rekening.</p>`,
+    quiz: {
+      question: "Pendapatan naik 20%, Laba Bersih naik 30%, namun Arus Kas Operasi (CFO) minus tajam. Apa yang wajib dicurigai?",
+      options: [
+        "Perusahaan sangat hemat biaya",
+        "Ada penumpukan piutang yang belum terbayar atau pengakuan penjualan agresif di atas kertas",
+        "Perusahaan pasti membagikan dividen kas jumbo",
+        "Manajemen menolak uang tunai"
+      ],
+      correct: 1,
+      explanation: "Kesenjangan lebar antara laba pembukuan dengan kas riil merupakan peringatan kualitas laba (earnings quality red flag)."
+    }
+  },
+  {
+    id: "lvl-8",
+    levelNumber: 8,
+    title: "Level 8: Valuasi Saham & Margin of Safety",
+    topicKey: "valuation",
+    desc: "Valuasi Relatif (PER, PBV) vs Valuasi Intrinsik (DCF - Discounted Cash Flow).",
+    objective: "Menghitung rentang nilai wajar bersyarat tanpa tebakan spekulatif.",
+    content: `<p>Harga adalah apa yang Anda bayar, nilai adalah apa yang Anda dapatkan. Jangan pernah membeli bisnis tanpa Margin of Safety.</p>`,
+    quiz: {
+      question: "Mengapa model DCF (Discounted Cash Flow) disebut sangat sensitif terhadap suku bunga diskonto (WACC)?",
+      options: [
+        "Karena perubahan kecil pada WACC mendiskontokan seluruh aliran kas masa depan secara eksponensial",
+        "Karena WACC diatur oleh bursa efek setiap pagi",
+        "DCF tidak sensitif terhadap suku bunga",
+        "Karena WACC selalu bernilai nol"
+      ],
+      correct: 0,
+      explanation: "Penyebut dalam rumus DCF memuat faktor pangkat tahunan diskonto. Kenaikan WACC 1% dapat memangkas estimasi nilai intrinsik hingga 15-20%."
+    }
+  }
+];
+
+// 5. FINCALC LAB TOOLS (CORE ENGINE)
+const CALC_DEFINITIONS = [
+  {
+    id: "calc-compound",
+    name: "1. Compound Interest",
+    desc: "Simulasi pertumbuhan modal berbasis bunga majemuk.",
+    formula: "FV = P(1 + r/12)^(12t) + PMT × [((1 + r/12)^(12t) - 1) / (r/12)]",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Modal Awal (Rp)</label><input type="number" id="c-ci-p" class="form-control" value="10000000"></div>
+        <div class="form-group"><label class="form-label">Investasi Bulanan (Rp)</label><input type="number" id="c-ci-pmt" class="form-control" value="1000000"></div>
+        <div class="form-group"><label class="form-label">Return Tahunan (%)</label><input type="number" id="c-ci-r" class="form-control" value="10"></div>
+        <div class="form-group"><label class="form-label">Durasi (Tahun)</label><input type="number" id="c-ci-t" class="form-control" value="10"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-compound')">Hitung Nilai Masa Depan</button>
+      <div id="c-ci-res" class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const p = parseFloat(document.getElementById("c-ci-p").value) || 0;
+      const pmt = parseFloat(document.getElementById("c-ci-pmt").value) || 0;
+      const r = (parseFloat(document.getElementById("c-ci-r").value) || 0) / 100;
+      const t = parseFloat(document.getElementById("c-ci-t").value) || 1;
+      const m = t * 12;
+      const mr = r / 12;
+      let fv = p;
+      let cost = p;
+      for (let i = 0; i < m; i++) { fv = fv * (1 + mr) + pmt; cost += pmt; }
+      return `<strong>Estimasi Nilai Akhir: ${SMA.formatRupiah(fv)}</strong> (Total Setoran: ${SMA.formatRupiah(cost)})<br><span style="font-size:0.75rem; color:var(--text-muted);">Simulasi matematis bersyarat, bukan jaminan masa depan.</span>`;
+    }
+  },
+  {
+    id: "calc-dcf",
+    name: "2. DCF Valuation Lab",
+    desc: "Menghitung nilai wajar intrinsik arus kas terdiskon bersyarat.",
+    formula: "PV = Σ [FCF_t / (1 + WACC)^t] + Terminal Value / (1 + WACC)^5",
+    render: () => `
+      <div class="grid-3">
+        <div class="form-group"><label class="form-label">FCF Saat Ini (Rp Miliar)</label><input type="number" id="c-dcf-fcf" class="form-control" value="3500"></div>
+        <div class="form-group"><label class="form-label">Pertumbuhan 5 Thn (%)</label><input type="number" id="c-dcf-g" class="form-control" value="8"></div>
+        <div class="form-group"><label class="form-label">WACC Diskonto (%)</label><input type="number" id="c-dcf-w" class="form-control" value="10"></div>
+        <div class="form-group"><label class="form-label">Terminal Growth (%)</label><input type="number" id="c-dcf-tg" class="form-control" value="3"></div>
+        <div class="form-group"><label class="form-label">Saham (Juta Lembar)</label><input type="number" id="c-dcf-sh" class="form-control" value="10000"></div>
+        <div class="form-group"><label class="form-label">Utang Bersih (Rp Miliar)</label><input type="number" id="c-dcf-nd" class="form-control" value="2000"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-dcf')">Hitung Nilai Intrinsik</button>
+      <div id="c-dcf-res" class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const fcf = (parseFloat(document.getElementById("c-dcf-fcf").value) || 0) * 1e9;
+      const g = (parseFloat(document.getElementById("c-dcf-g").value) || 0) / 100;
+      const w = (parseFloat(document.getElementById("c-dcf-w").value) || 0) / 100;
+      const tg = (parseFloat(document.getElementById("c-dcf-tg").value) || 0) / 100;
+      const sh = (parseFloat(document.getElementById("c-dcf-sh").value) || 1) * 1e6;
+      const nd = (parseFloat(document.getElementById("c-dcf-nd").value) || 0) * 1e9;
+
+      if (w <= tg) return `<span style="color:var(--danger)">WACC harus lebih tinggi dari Terminal Growth.</span>`;
+
+      let pv = 0;
+      let cf = fcf;
+      for (let t = 1; t <= 5; t++) {
+        cf *= (1 + g);
+        pv += cf / Math.pow(1 + w, t);
+      }
+      const tv = (cf * (1 + tg)) / (w - tg);
+      const ev = pv + (tv / Math.pow(1 + w, 5));
+      const eq = ev - nd;
+      const perShare = Math.max(0, eq / sh);
+
+      return `<strong>Estimasi Nilai Wajar Intrinsik: Rp ${Math.round(perShare).toLocaleString()} / Saham</strong><p style="font-size:0.8rem; margin-top:4px;">Asumsi: Terminal Growth ${(tg*100).toFixed(1)}%, WACC ${(w*100).toFixed(1)}%. Model bersyarat ini sangat sensitif terhadap perubahan suku bunga acuan.</p>`;
+    }
+  }
+];
+
+// 6. MAIN APPLICATION CONTROLLER
+const SMA = {
+  stateManager: new StateManager(),
+  currentSocraticCase: null,
+  currentSocraticStep: 0,
+
+  init() {
+    this.bindEvents();
+    this.renderCurriculum();
+    this.renderCalcTabs();
+    this.calculateWorkbench();
+    this.loadSocraticCase("case-1");
+    this.refreshTutorAnalysis();
+    this.updateDashboard();
+    this.stateManager.syncUI();
+  },
+
+  bindEvents() {
+    const menuToggle = document.getElementById("menu-toggle");
+    const sidebar = document.getElementById("sidebar");
+    const backdrop = document.getElementById("sidebar-backdrop");
+
+    if (menuToggle && sidebar) {
+      menuToggle.addEventListener("click", () => sidebar.classList.toggle("open"));
+    }
+    if (backdrop && sidebar) {
+      backdrop.addEventListener("click", () => sidebar.classList.remove("open"));
+    }
+
+    document.querySelectorAll(".nav-item").forEach(item => {
+      item.addEventListener("click", () => {
+        const view = item.getAttribute("data-view");
+        this.navigate(view);
+        if (sidebar) sidebar.classList.remove("open");
+      });
+    });
+  },
+
+  navigate(viewId) {
+    document.querySelectorAll(".nav-item").forEach(el => {
+      el.classList.toggle("active", el.getAttribute("data-view") === viewId);
+    });
+    document.querySelectorAll(".view-container").forEach(v => v.classList.remove("active"));
+    const target = document.getElementById(`view-${viewId}`);
+    if (target) {
+      target.classList.add("active");
+      document.getElementById("main-content").scrollTop = 0;
+    }
+    if (viewId === "tutor-panel") this.refreshTutorAnalysis();
+    if (viewId === "dashboard") this.updateDashboard();
+  },
+
+  formatRupiah(num) {
+    if (isNaN(num)) return "Rp 0";
+    return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(num);
+  },
+
+  // ---------------------------------------------------------------------------
+  // TUTOR DIAGNOSTIC & COMPETENCY ENGINE
+  // ---------------------------------------------------------------------------
+  refreshTutorAnalysis() {
+    const analysis = TutorEngine.analyzeUser(this.stateManager.state);
+
+    const outBox = document.getElementById("tutor-diagnosis-output");
+    if (outBox) {
+      let mistakesHtml = analysis.recentMistakes.length ? `
+        <div style="margin-top:12px; font-size:0.83rem; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); border-radius:var(--radius-sm); padding:10px;">
+          <strong style="color:var(--danger)">Pola Kesalahan yang Berulang Terdeteksi:</strong>
+          <ul style="padding-left:18px; margin-top:4px; color:var(--text-muted);">
+            ${analysis.recentMistakes.map(m => `<li>${m.mistake}</li>`).join("")}
+          </ul>
+        </div>
+      ` : "";
+
+      outBox.innerHTML = `
+        <p style="font-size:0.92rem; line-height:1.7; color:var(--text-main); margin-bottom:8px;">
+          ${analysis.diagnosisSummary}
+        </p>
+        ${mistakesHtml}
+      `;
+    }
+
+    // Render 5 Dimensions Matrix
+    const grid = document.getElementById("tutor-competency-grid");
+    if (grid) {
+      grid.innerHTML = Object.entries(this.stateManager.state.topicMastery).map(([k, val]) => `
+        <div style="background:var(--bg-card); padding:12px; border-radius:var(--radius-md); border:1px solid var(--border-subtle);">
+          <div style="display:flex; justify-content:space-between; font-size:0.78rem; margin-bottom:4px;">
+            <span style="text-transform:uppercase; font-weight:700;">${k}</span>
+            <strong style="color:${val >= 75 ? "var(--success)" : (val >= 60 ? "var(--warning)" : "var(--danger)")}">${val}%</strong>
+          </div>
+          <div class="progress-bar-wrapper" style="margin:0;"><div class="progress-bar-fill" style="width:${val}%;"></div></div>
+        </div>
+      `).join("");
+    }
+
+    // Render Actionable Learning Path
+    const recBox = document.getElementById("tutor-recommended-actions");
+    if (recBox) {
+      recBox.innerHTML = analysis.recommendations.map(r => `
+        <div style="background:var(--bg-card); padding:12px 16px; border-radius:var(--radius-md); border-left:4px solid var(--accent-purple); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <strong style="font-size:0.9rem;">${r.title}</strong>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">${r.desc}</p>
+          </div>
+          <button class="btn btn-sm btn-primary" onclick="(${r.action})()">Buka Latihan →</button>
+        </div>
+      `).join("");
+    }
+  },
+
+  // ---------------------------------------------------------------------------
+  // SOCRATIC MODE ENGINE ("THINK LIKE AN INVESTOR")
+  // ---------------------------------------------------------------------------
+  loadSocraticCase(caseKey) {
+    this.currentSocraticCase = SOCRATIC_CASES[caseKey];
+    this.currentSocraticStep = 0;
+    const history = document.getElementById("socratic-chat-history");
+    if (!history) return;
+
+    history.innerHTML = `
+      <div class="chat-bubble chat-tutor">
+        <strong>Tutor AI (Inkuiri Sokrates):</strong><br>
+        ${this.currentSocraticCase.initialTutor.replace(/\n\n/g, "<br><br>")}
+      </div>
+    `;
+    this.renderSocraticStep();
+  },
+
+  renderSocraticStep() {
+    const step = this.currentSocraticCase.steps[this.currentSocraticStep];
+    const promptLabel = document.getElementById("socratic-prompt-label");
+    const container = document.getElementById("socratic-options-container");
+    if (!step || !container) {
+      promptLabel.innerText = "Investigasi selesai. Anda telah menyelesaikan sesi dialektika ini.";
+      container.innerHTML = `<button class="btn btn-ai" onclick="SMA.navigate('tutor-panel')">Kembali ke Diagnostik Tutor</button>`;
+      return;
+    }
+
+    promptLabel.innerText = step.userPrompt;
+    container.innerHTML = step.options.map((opt, idx) => `
+      <button class="btn btn-secondary" style="justify-content:flex-start; text-align:left;" onclick="SMA.submitSocraticChoice(${idx})">
+        ${String.fromCharCode(65 + idx)}. ${opt.text}
+      </button>
+    `).join("");
+  },
+
+  submitSocraticChoice(chosenIdx) {
+    const step = this.currentSocraticCase.steps[this.currentSocraticStep];
+    const choice = step.options[chosenIdx];
+    const history = document.getElementById("socratic-chat-history");
+
+    // Add user bubble
+    history.innerHTML += `
+      <div class="chat-bubble chat-user">
+        <strong>Respon Anda:</strong><br>${choice.text}
+      </div>
+    `;
+
+    // Add Tutor feedback bubble
+    const colorTag = choice.correct ? "var(--success)" : "var(--warning)";
+    history.innerHTML += `
+      <div class="chat-bubble chat-tutor" style="border-left-color:${colorTag}">
+        <strong>Tutor AI:</strong><br>${choice.feedback}
+        <div style="margin-top:8px;">${step.nextTutor || ""}</div>
+      </div>
+    `;
+
+    if (!choice.correct) {
+      this.stateManager.recordMistake("valuation", "Keliru memilih asumsi dasar pada studi kasus Sokrates.");
+    } else {
+      this.stateManager.addXP(40);
+    }
+
+    this.currentSocraticStep++;
+    history.scrollTop = history.scrollHeight;
+    this.renderSocraticStep();
+  },
+
+  // ---------------------------------------------------------------------------
+  // CURRICULUM & ADAPTIVE QUIZ
+  // ---------------------------------------------------------------------------
+  renderCurriculum() {
+    const list = document.getElementById("curriculum-list");
+    if (!list) return;
+    list.innerHTML = CURRICULUM_DATA.map(lvl => `
+      <div class="card" style="margin-bottom:0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div>
+          <span class="sim-tag">TINGKAT ${lvl.levelNumber}</span>
+          <h3 style="font-size:1.05rem; font-weight:700; margin-top:4px;">${lvl.title}</h3>
+          <p style="font-size:0.83rem; color:var(--text-muted);">${lvl.desc}</p>
+        </div>
+        <button class="btn btn-sm btn-primary" onclick="SMA.openLesson('${lvl.id}')">Buka Modul →</button>
+      </div>
+    `).join("");
+  },
+
+  openLesson(id) {
+    const lvl = CURRICULUM_DATA.find(l => l.id === id);
+    if (!lvl) return;
+    this.navigate("lesson");
+    const container = document.getElementById("lesson-article");
+
+    container.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span class="sim-tag">LEVEL ${lvl.levelNumber}</span>
+        <span class="ai-tag">ADAPTIVE MODE</span>
+      </div>
+      <h1 style="font-size:1.5rem; font-weight:800; margin-bottom:8px;">${lvl.title}</h1>
+      <p style="color:var(--primary); font-size:0.88rem; margin-bottom:16px;">Tujuan Pembelajaran: ${lvl.objective}</p>
+      <div style="font-size:0.92rem; line-height:1.7; margin-bottom:20px;">${lvl.content}</div>
+
+      <div class="card" style="background:var(--bg-base);">
+        <div class="card-title">Kuis Evaluasi Adaptif</div>
+        <p style="font-size:0.88rem; margin-bottom:12px;"><strong>Pertanyaan:</strong> ${lvl.quiz.question}</p>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          ${lvl.quiz.options.map((opt, i) => `
+            <button class="btn btn-secondary" style="justify-content:flex-start; text-align:left;" onclick="SMA.evalQuiz('${lvl.id}',${i})">
+              ${String.fromCharCode(65 + i)}.${opt}
+            </button>
+          `).join("")}
+        </div>
+        <div id="quiz-fb-${lvl.id}" style="display:none; margin-top:14px;"></div>
+      </div>
+    `;
+  },
+
+  evalQuiz(id, chosen) {
+    const lvl = CURRICULUM_DATA.find(l => l.id === id);
+    const isCorrect = chosen === lvl.quiz.correct;
+    const fb = document.getElementById(`quiz-fb-${id}`);
+    fb.style.display = "block";
+
+    if (isCorrect) {
+      fb.className = "callout callout-success";
+      fb.innerHTML = `<strong>Benar! (+50 XP)</strong><p style="margin-top:4px;">${lvl.quiz.explanation}</p>`;
+      this.stateManager.state.topicMastery[lvl.topicKey] = Math.min(100, (this.stateManager.state.topicMastery[lvl.topicKey] || 70) + 10);
+      this.stateManager.addXP(50);
+    } else {
+      fb.className = "callout callout-danger";
+      fb.innerHTML = `<strong>Kurang Tepat</strong><p style="margin-top:4px;">${lvl.quiz.explanation}</p>`;
+      this.stateManager.recordMistake(lvl.topicKey, `Kekeliruan pada kuis ${lvl.title}`);
+      this.stateManager.state.topicMastery[lvl.topicKey] = Math.max(0, (this.stateManager.state.topicMastery[lvl.topicKey] || 70) - 15);
+    }
+    this.stateManager.save();
+  },
+
+  // ---------------------------------------------------------------------------
+  // CALCULATOR ENGINE
+  // ---------------------------------------------------------------------------
+  renderCalcTabs() {
+    const nav = document.getElementById("calc-tab-nav");
+    if (!nav) return;
+    nav.innerHTML = CALC_DEFINITIONS.map((c, i) => `
+      <button class="tab-btn ${i === 0 ? "active" : ""}" onclick="SMA.selectCalculator('${c.id}')">${c.name}</button>
+    `).join("");
+    this.selectCalculator(CALC_DEFINITIONS[0].id);
+  },
+
+  selectCalculator(id) {
+    const c = CALC_DEFINITIONS.find(item => item.id === id);
+    if (!c) return;
+    document.querySelectorAll("#calc-tab-nav .tab-btn").forEach(b => {
+      b.classList.toggle("active", b.innerText.includes(c.name));
+    });
+    const cont = document.getElementById("calc-container");
+    cont.innerHTML = `
+      <div class="card-title">${c.name}</div>
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:10px;">${c.desc}</p>
+      <div class="callout callout-info" style="font-family:var(--font-mono); font-size:0.82rem; margin-bottom:14px;"><strong>Rumus:</strong> ${c.formula}</div>
+      ${c.render()}
+    `;
+    this.stateManager.recordCalcUsage(id);
+  },
+
+  runCalc(id) {
+    const c = CALC_DEFINITIONS.find(item => item.id === id);
+    if (!c) return;
+    const res = c.exec();
+    const box = document.querySelector("#calc-container .callout:last-child");
+    if (box) {
+      box.style.display = "block";
+      box.innerHTML = res;
+    }
+  },
+
+  // ---------------------------------------------------------------------------
+  // WORKBENCH
+  // ---------------------------------------------------------------------------
+  calculateWorkbench() {
+    const price = Math.max(1, parseFloat(document.getElementById("wb-price").value) || 1);
+    const shares = Math.max(1, parseFloat(document.getElementById("wb-shares").value) || 1);
+    const netM = parseFloat(document.getElementById("wb-net").value) || 0;
+    const eqM = parseFloat(document.getElementById("wb-equity").value) || 0;
+    const debtM = parseFloat(document.getElementById("wb-debt").value) || 0;
+
+    const netAbs = netM * 1e9;
+    const eqAbs = eqM * 1e9;
+    const mcap = price * shares;
+
+    const eps = netAbs / shares;
+    const per = eps > 0 ? (price / eps) : 0;
+    const pbv = eqAbs > 0 ? (mcap / eqAbs) : 0;
+    const roe = eqAbs > 0 ? ((netAbs / eqAbs) * 100) : 0;
+    const der = eqM > 0 ? (debtM / eqM) : 0;
+
+    document.getElementById("wb-res-per").innerText = eps > 0 ? `${per.toFixed(2)}x` : "Negatif";
+    document.getElementById("wb-res-pbv").innerText = `${pbv.toFixed(2)}x`;
+    document.getElementById("wb-res-roe").innerText = `${roe.toFixed(2)}%`;
+    document.getElementById("wb-res-der").innerText = `${der.toFixed(2)}x`;
+
+    const questions = [
+      `Apakah PER ${per.toFixed(1)}x didukung oleh pertumbuhan arus kas operasi riil?`,
+      `Apakah ROE ${roe.toFixed(1)}% murni efisiensi laba atau didorong utang tinggi DER ${der.toFixed(2)}x?`,
+      `Faktor apa saja yang bisa membatalkan asumsi pertumbuhan bisnis ini ke depan?`
+    ];
+    document.getElementById("wb-investigation-questions").innerHTML = questions.map(q => `<li>${q}</li>`).join("");
+  },
+
+  updateDashboard() {
+    const mastery = Object.values(this.stateManager.state.topicMastery);
+    const avg = mastery.length ? Math.round(mastery.reduce((a, b) => a + b, 0) / mastery.length) : 0;
+    document.getElementById("dash-progress-pct").innerText = `${avg}%`;
+    document.getElementById("dash-progress-bar").style.width = `${avg}%`;
+    document.getElementById("dash-quiz-avg").innerText = `${avg}%`;
+
+    const sorted = Object.entries(this.stateManager.state.topicMastery).sort((a, b) => b[1] - a[1]);
+    document.getElementById("dash-strong-topic").innerText = sorted[0][0].toUpperCase();
+    document.getElementById("dash-weak-topic").innerText = sorted[sorted.length - 1][0].toUpperCase();
+
+    const badgeContainer = document.getElementById("dash-badges-container");
+    if (badgeContainer) {
+      badgeContainer.innerHTML = ["First Lesson", "Socratic Thinker", "Forensic Reader", "Independent Investor"].map(b => `
+        <span class="stat-pill"><span>🏅</span> ${b}</span>
+      `).join("");
+    }
+  },
+
+  openNewJournalModal() {
+    alert("Silakan catat tesis investasi baru Anda langsung pada buku riset lokal.");
+  }
+};
+
+// Start application
+document.addEventListener("DOMContentLoaded", () => {
+  SMA.init();
+});
+</script>
+</body>
+</html>
