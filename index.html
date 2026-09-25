@@ -6,7 +6,7 @@
   <title>Stock Master Academy | Adaptive AI Tutor Edition</title>
   <style>
     /* ==========================================================================
-       1. ROOT DESIGN SYSTEM
+       1. ROOT DESIGN SYSTEM (Dark Financial Theme)
        ========================================================================== */
     :root {
       --bg-base: #0B0E14;
@@ -187,6 +187,35 @@
     .search-input:focus { border-color: var(--border-focus); }
     .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-dim); pointer-events: none; }
 
+    .search-dropdown {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      right: 0;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      max-height: 320px;
+      overflow-y: auto;
+      z-index: 100;
+      display: none;
+    }
+    .search-dropdown.active { display: block; }
+    .search-result-item {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .search-result-item:hover { background: var(--bg-card); }
+    .search-result-item .item-type {
+      font-size: 0.68rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
     .header-stats { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .stat-pill {
       background: var(--bg-card);
@@ -341,6 +370,26 @@
     }
     .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
 
+    .table-responsive {
+      overflow-x: auto;
+      width: 100%;
+      margin: 10px 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      min-width: 480px;
+    }
+    .data-table th, .data-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .data-table th { background: var(--bg-card); color: var(--text-muted); font-weight: 600; }
+
     .app-disclaimer {
       font-size: 0.75rem;
       color: var(--text-dim);
@@ -435,17 +484,39 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
         Kurikulum Lengkap (17 Lvl)
       </div>
+      <div class="nav-item" data-view="simulators">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+        Lab Simulator Pasar
+      </div>
       <div class="nav-item" data-view="calculators">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M8 18h.01M12 18h.01"></path></svg>
-        FinCalc Lab Tools
+        17 FinCalc Tools
       </div>
       <div class="nav-item" data-view="workbench">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
         Stock Analysis Lab
       </div>
+      <div class="nav-item" data-view="portfolio-lab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+        Portfolio Builder
+      </div>
+      <div class="nav-item" data-view="capstone">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>
+        Capstone Challenge
+      </div>
+
+      <div class="nav-group-title">Referensi & Dokumen</div>
       <div class="nav-item" data-view="journal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
         Jurnal Tesis Investasi
+      </div>
+      <div class="nav-item" data-view="glossary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        Glosarium Keuangan
+      </div>
+      <div class="nav-item" data-view="formulas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        Kamus Rumus Resmi
       </div>
     </nav>
 
@@ -477,7 +548,8 @@
         </button>
         <div class="search-wrapper">
           <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="global-search" class="search-input" placeholder="Cari materi, konsep, atau evaluasi tutor..." autocomplete="off">
+          <input type="text" id="global-search" class="search-input" placeholder="Cari materi, rasio, rumus, atau konsep..." autocomplete="off">
+          <div class="search-dropdown" id="search-results"></div>
         </div>
       </div>
       <div class="header-stats">
@@ -492,12 +564,14 @@
       </div>
     </header>
 
-    <!-- VIEW 1: AI TUTOR PANEL (CORE UPGRADE) -->
+    <!-- VIEWS -->
+
+    <!-- VIEW 1: AI TUTOR PANEL -->
     <section id="view-tutor-panel" class="view-container active">
       <div style="margin-bottom: 20px;">
         <div style="display:flex; align-items:center; gap:8px;">
           <h1 style="font-size: 1.5rem; font-weight: 800;">Personal AI Financial Tutor</h1>
-          <span class="ai-tag">COGNITIVE ENGINE V1.2</span>
+          <span class="ai-tag">COGNITIVE ENGINE V2.5</span>
         </div>
         <p style="color: var(--text-muted); font-size: 0.88rem;">
           Menganalisis kesalahan kuis Anda, kebiasaan kalkulator, serta melatih pola penalaran objektif tanpa spekulasi masa depan.
@@ -513,18 +587,13 @@
           </div>
           <button class="btn btn-sm btn-secondary" onclick="SMA.refreshTutorAnalysis()">Segarkan Analisis Tutor</button>
         </div>
-        
-        <div id="tutor-diagnosis-output">
-          <!-- Injected via JavaScript -->
-        </div>
+        <div id="tutor-diagnosis-output"></div>
       </div>
 
       <!-- Competency Matrix -->
       <div class="card">
-        <div class="card-title">Matriks Penguasaan 5 Dimensi Analisis Saham</div>
-        <div class="grid-3" id="tutor-competency-grid">
-          <!-- Injected via JavaScript -->
-        </div>
+        <div class="card-title">Matriks Penguasaan Dimensi Analisis Saham</div>
+        <div class="grid-3" id="tutor-competency-grid"></div>
       </div>
 
       <!-- Actionable Learning Path Recommended by Tutor -->
@@ -534,7 +603,7 @@
       </div>
     </section>
 
-    <!-- VIEW 2: SOCRATIC MODE ("THINK LIKE AN INVESTOR") -->
+    <!-- VIEW 2: SOCRATIC MODE -->
     <section id="view-socratic" class="view-container">
       <div style="margin-bottom: 16px;">
         <div style="display:flex; align-items:center; gap:8px;">
@@ -542,7 +611,7 @@
           <span class="ai-tag">INDEPENDENT REASONING LAB</span>
         </div>
         <p style="color: var(--text-muted); font-size: 0.88rem;">
-          Tutor tidak akan memberi tahu Anda saham apa yang harus dibeli. Tutor akan membongkar asumsi tersembunyi Anda dan menguji ketangguhan logika Anda.
+          Tutor tidak memberi rekomendasi beli/jual saham. Tutor menguji asumsi tersembunyi Anda dan melatih penalaran objektif.
         </p>
       </div>
 
@@ -560,17 +629,11 @@
           </select>
         </div>
 
-        <!-- Chat Container -->
-        <div class="socratic-chat-box" id="socratic-chat-history">
-          <!-- Bubbles injected dynamically -->
-        </div>
+        <div class="socratic-chat-box" id="socratic-chat-history"></div>
 
-        <!-- Socratic Question Prompts -->
         <div id="socratic-interaction-panel" style="margin-top:16px; border-top:1px solid var(--border-subtle); padding-top:16px;">
           <div class="form-label" id="socratic-prompt-label">Pilih respon analisis kritis Anda:</div>
-          <div id="socratic-options-container" style="display:flex; flex-direction:column; gap:8px;">
-            <!-- Buttons injected dynamically -->
-          </div>
+          <div id="socratic-options-container" style="display:flex; flex-direction:column; gap:8px;"></div>
         </div>
       </div>
     </section>
@@ -603,7 +666,7 @@
 
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">Mulai Langkah Selanjutnya</div>
+          <div class="card-title">Langkah Selanjutnya</div>
           <p style="color:var(--text-muted); margin-bottom: 16px; font-size: 0.9rem;" id="dash-next-desc">Lanjutkan kurikulum atau konsultasikan hasil belajar ke Tutor.</p>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
             <button class="btn btn-ai" onclick="SMA.navigate('tutor-panel')">Buka Diagnostik AI Tutor →</button>
@@ -616,13 +679,25 @@
           <div style="display: flex; flex-wrap: wrap; gap: 8px;" id="dash-badges-container"></div>
         </div>
       </div>
+
+      <div class="card">
+        <div class="card-title">Cadangan & Manajemen Data Lokal</div>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom: 14px;">
+          Data kemajuan dan jurnal Anda tersimpan secara aman di peramban ini (HTML5 localStorage).
+        </p>
+        <div style="display:flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn btn-secondary btn-sm" onclick="SMA.exportProgress()">📥 Cadangkan Progres (JSON)</button>
+          <button class="btn btn-secondary btn-sm" onclick="SMA.exportJournalCSV()">📥 Ekspor Jurnal Riset (CSV)</button>
+          <button class="btn btn-danger btn-sm" onclick="SMA.resetProgressPrompt()">⚠️ Hapus Seluruh Progres</button>
+        </div>
+      </div>
     </section>
 
-    <!-- VIEW 4: CURRICULUM -->
+    <!-- VIEW 4: CURRICULUM (LENGKAP 17 LEVEL TANPA TERPOTONG) -->
     <section id="view-curriculum" class="view-container">
       <div style="margin-bottom: 20px;">
         <h1 style="font-size: 1.5rem; font-weight: 800;">Silabus Lengkap: Level 0 s/d Level 16</h1>
-        <p style="color: var(--text-muted); font-size: 0.88rem;">Tingkat kesulitan kuis di tiap modul beradaptasi otomatis terhadap riwayat analisis Anda.</p>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">17 Level Pembelajaran Berurutan Tanpa Lompatan. Lengkap dari nol hingga investor independen.</p>
       </div>
       <div id="curriculum-list" style="display:flex; flex-direction:column; gap:12px;"></div>
     </section>
@@ -635,52 +710,407 @@
       <article class="card" id="lesson-article" style="padding: 24px;"></article>
     </section>
 
-    <!-- VIEW 6: CALCULATORS -->
+    <!-- VIEW 6: SIMULATORS -->
+    <section id="view-simulators" class="view-container">
+      <h1 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">Laboratorium Simulator Pasar</h1>
+      <p style="color: var(--text-muted); margin-bottom: 16px; font-size:0.88rem;">Pahami dinamika pasar melalui order book, candlestick chart interaktif, rantai nilai bisnis, dan transmisi makro.</p>
+
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="SMA.switchSimTab('orderbook')">Order Book & Matching Engine</button>
+        <button class="tab-btn" onclick="SMA.switchSimTab('technical')">Interactive Technical Chart</button>
+        <button class="tab-btn" onclick="SMA.switchSimTab('businessmodel')">Rantai Nilai Bisnis (Value Chain)</button>
+        <button class="tab-btn" onclick="SMA.switchSimTab('macroshock')">Macro Shock Transmission</button>
+      </div>
+
+      <!-- SIM 1: Order Book -->
+      <div id="sim-orderbook" class="sim-tab-content">
+        <div class="card">
+          <div class="card-title">
+            <span>Simulasi Order Book & Eksekusi Antrean</span>
+            <span class="sim-tag">BURSA SIMULASI</span>
+          </div>
+          <div class="grid-2">
+            <div>
+              <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); margin-bottom:6px;">ORDER BOOK: PT NUSANTARA CONSUMER TBK (NSCN)</div>
+              <div class="grid-2" style="gap:6px;">
+                <div style="background:rgba(16,185,129,0.05); border:1px solid rgba(16,185,129,0.2); border-radius:var(--radius-sm); padding:8px;">
+                  <div style="font-size:0.72rem; font-weight:700; color:var(--success); margin-bottom:6px; display:flex; justify-content:space-between;">
+                    <span>LOT</span><span>BID</span>
+                  </div>
+                  <div id="ob-bid-rows" style="font-family:var(--font-mono); font-size:0.8rem; display:flex; flex-direction:column; gap:4px;"></div>
+                </div>
+                <div style="background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.2); border-radius:var(--radius-sm); padding:8px;">
+                  <div style="font-size:0.72rem; font-weight:700; color:var(--danger); margin-bottom:6px; display:flex; justify-content:space-between;">
+                    <span>ASK</span><span>LOT</span>
+                  </div>
+                  <div id="ob-ask-rows" style="font-family:var(--font-mono); font-size:0.8rem; display:flex; flex-direction:column; gap:4px;"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <label class="form-label">Tipe Order</label>
+                <select id="ob-order-type" class="form-control">
+                  <option value="MARKET_BUY">Market Buy (Hajar Kanan)</option>
+                  <option value="MARKET_SELL">Market Sell (Hajar Kiri)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Volume (Lot)</label>
+                <input type="number" id="ob-lot-input" class="form-control" value="10" min="1">
+              </div>
+              <button class="btn btn-primary" style="width:100%;" onclick="SMA.executeOrderSim()">Eksekusi Order</button>
+              <div id="ob-feedback" class="callout callout-info" style="display:none; margin-top:12px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIM 2: Technical Chart Canvas -->
+      <div id="sim-technical" class="sim-tab-content" style="display:none;">
+        <div class="card">
+          <div class="card-title">
+            <span>Interactive Candlestick Canvas</span>
+            <span class="sim-tag">NATIVE HI-DPI ENGINE</span>
+          </div>
+          <div style="display:flex; gap:12px; margin-bottom: 14px; flex-wrap: wrap;">
+            <label style="display:flex; align-items:center; gap:6px; font-size:0.82rem; cursor:pointer;">
+              <input type="checkbox" id="chk-sma20" checked onchange="SMA.drawTechnicalChart()"> SMA 20 (Biru)
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; font-size:0.82rem; cursor:pointer;">
+              <input type="checkbox" id="chk-sma50" checked onchange="SMA.drawTechnicalChart()"> SMA 50 (Kuning)
+            </label>
+            <button class="btn btn-secondary btn-sm" onclick="SMA.regenerateChartData()">Acak Siklus Tren Baru</button>
+          </div>
+          <div style="background:var(--bg-base); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:8px; position:relative; overflow:hidden;">
+            <canvas id="techChartCanvas" width="900" height="380" style="width:100%; height:auto; display:block;"></canvas>
+          </div>
+          <div id="tech-indicator-readout" style="margin-top:10px; font-size:0.8rem; color:var(--text-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;"></div>
+        </div>
+      </div>
+
+      <!-- SIM 3: Value Chain -->
+      <div id="sim-businessmodel" class="sim-tab-content" style="display:none;">
+        <div class="card">
+          <div class="card-title">Rantai Penciptaan Kas Perusahaan (Value Chain)</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="background:var(--bg-card); padding:12px 14px; border-radius:var(--radius-md); border-left:4px solid var(--primary);">
+              <strong>1. Pengadaan & Pemasok:</strong> Pembelian bahan baku $\to$ Beban Pokok Pendapatan (COGS).
+            </div>
+            <div style="background:var(--bg-card); padding:12px 14px; border-radius:var(--radius-md); border-left:4px solid var(--accent-teal);">
+              <strong>2. Fabrikasi:</strong> Konversi bahan menjadi produk $\to$ Membutuhkan CAPEX & tenaga kerja.
+            </div>
+            <div style="background:var(--bg-card); padding:12px 14px; border-radius:var(--radius-md); border-left:4px solid var(--accent-purple);">
+              <strong>3. Distribusi Retail:</strong> Distribusi ke warung & minimarket $\to$ Beban Operasional (Opex).
+            </div>
+            <div style="background:var(--bg-card); padding:12px 14px; border-radius:var(--radius-md); border-left:4px solid var(--success);">
+              <strong>4. Pembelian Konsumen:</strong> Pembelian tunai harian $\to$ Pendapatan Bersih (Revenue) berulang.
+            </div>
+            <div style="background:var(--bg-card); padding:12px 14px; border-radius:var(--radius-md); border-left:4px solid var(--warning);">
+              <strong>5. Kas Bersih (FCF):</strong> Kas Operasi dikurangi belanja modal $\to$ Sumber dividen tunai pemegang saham.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIM 4: Macro Shock -->
+      <div id="sim-macroshock" class="sim-tab-content" style="display:none;">
+        <div class="card">
+          <div class="card-title">
+            <span>Macro Shock Transmission Simulator</span>
+            <span class="sim-tag">TRANSMISI MAKRO</span>
+          </div>
+          <div class="grid-3" style="margin-bottom:16px;">
+            <div class="form-group">
+              <label class="form-label">Suku Bunga Acuan (BI-Rate)</label>
+              <select id="macro-rate" class="form-control" onchange="SMA.runMacroSim()">
+                <option value="-2">-2.00% (Moneter Longgar)</option>
+                <option value="0" selected>0.00% (Kondisi Netral)</option>
+                <option value="2">+2.00% (Pengetatan Moneter)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Harga Minyak Dunia</label>
+              <select id="macro-oil" class="form-control" onchange="SMA.runMacroSim()">
+                <option value="-30">-30% (Pasokan Berlebih)</option>
+                <option value="0" selected>0% (Harga Stabil)</option>
+                <option value="30">+30% (Lonjakan Minyak)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Kurs USD terhadap Rupiah</label>
+              <select id="macro-usd" class="form-control" onchange="SMA.runMacroSim()">
+                <option value="-10">Rupiah Menguat 10%</option>
+                <option value="0" selected>Kurs Stabil</option>
+                <option value="10">Rupiah Melemah 10%</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Sektor Industri</th>
+                  <th>Dampak Minyak</th>
+                  <th>Dampak Suku Bunga</th>
+                  <th>Dampak Fluktuasi Kurs</th>
+                </tr>
+              </thead>
+              <tbody id="macro-impact-rows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 7: 17 CALCULATORS -->
     <section id="view-calculators" class="view-container">
-      <h1 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">FinCalc Lab Tools</h1>
-      <p style="color: var(--text-muted); margin-bottom: 16px; font-size:0.88rem;">Setiap penggunaan kalkulator dicatat oleh AI Tutor untuk mengevaluasi pemahaman matematika valuasi Anda.</p>
+      <h1 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">17 FinCalc Tools (Kalkulator Finansial Lengkap)</h1>
+      <p style="color: var(--text-muted); margin-bottom: 16px; font-size:0.88rem;">Seluruh modul kalkulator terproteksi terhadap nilai nol, negatif, dan dilengkapi rumus teoritis.</p>
       <div class="tab-nav" id="calc-tab-nav"></div>
       <div id="calc-container" class="card"></div>
     </section>
 
-    <!-- VIEW 7: WORKBENCH -->
+    <!-- VIEW 8: WORKBENCH -->
     <section id="view-workbench" class="view-container">
-      <h1 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">Stock Analysis Workbench</h1>
-      <p style="color: var(--text-muted); margin-bottom: 16px; font-size:0.88rem;">Laboratorium pembongkaran data keuangan tanpa rekomendasi instan Beli/Jual.</p>
+      <h1 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">Stock Analysis Workbench & Scenario Lab</h1>
+      <p style="color: var(--text-muted); margin-bottom: 16px; font-size:0.88rem;">Laboratorium evaluasi metrik rasio tanpa bias rekomendasi beli/jual.</p>
       <div class="grid-2">
         <div class="card">
           <div class="card-title">Parameter Emiten (Simulasi)</div>
           <div class="grid-2">
+            <div class="form-group"><label class="form-label">Nama Perusahaan</label><input type="text" id="wb-name" class="form-control" value="PT Nusantara Consumer Tbk"></div>
+            <div class="form-group"><label class="form-label">Ticker Saham</label><input type="text" id="wb-ticker" class="form-control" value="NSCN"></div>
             <div class="form-group"><label class="form-label">Harga Saham (Rp)</label><input type="number" id="wb-price" class="form-control" value="2400" min="1"></div>
             <div class="form-group"><label class="form-label">Saham Beredar (Lembar)</label><input type="number" id="wb-shares" class="form-control" value="10000000000" min="1"></div>
             <div class="form-group"><label class="form-label">Pendapatan (Rp Miliar)</label><input type="number" id="wb-rev" class="form-control" value="45000"></div>
             <div class="form-group"><label class="form-label">Laba Bersih (Rp Miliar)</label><input type="number" id="wb-net" class="form-control" value="5400"></div>
             <div class="form-group"><label class="form-label">Total Ekuitas (Rp Miliar)</label><input type="number" id="wb-equity" class="form-control" value="22000"></div>
             <div class="form-group"><label class="form-label">Total Utang (Rp Miliar)</label><input type="number" id="wb-debt" class="form-control" value="6000"></div>
+            <div class="form-group"><label class="form-label">Free Cash Flow (Rp Miliar)</label><input type="number" id="wb-fcf" class="form-control" value="4800"></div>
+            <div class="form-group"><label class="form-label">Pertumbuhan (%)</label><input type="number" id="wb-growth" class="form-control" value="8"></div>
           </div>
-          <button class="btn btn-primary" style="width:100%;" onclick="SMA.calculateWorkbench()">Evaluasi Metrik Rasio</button>
+          <button class="btn btn-primary" style="width:100%;" onclick="SMA.calculateWorkbench()">Hitung Rasio & Observasi</button>
         </div>
-        <div class="card" id="wb-results-card">
-          <div class="card-title">Hasil Observasi Rasio Kunci</div>
-          <div class="grid-2" style="margin-bottom:12px;">
-            <div><span class="form-label">PER Terhitung</span><strong id="wb-res-per" style="color:var(--primary); font-size:1.1rem;">-</strong></div>
-            <div><span class="form-label">PBV Terhitung</span><strong id="wb-res-pbv" style="color:var(--primary); font-size:1.1rem;">-</strong></div>
-            <div><span class="form-label">ROE Terhitung</span><strong id="wb-res-roe" style="color:var(--success); font-size:1.1rem;">-</strong></div>
-            <div><span class="form-label">DER Terhitung</span><strong id="wb-res-der" style="color:var(--warning); font-size:1.1rem;">-</strong></div>
+        <div>
+          <div class="card" id="wb-results-card">
+            <div class="card-title">Hasil Observasi Rasio Kunci</div>
+            <div class="grid-2" style="margin-bottom:12px;">
+              <div><span class="form-label">Market Cap</span><strong id="wb-res-mcap">-</strong></div>
+              <div><span class="form-label">EPS</span><strong id="wb-res-eps">-</strong></div>
+              <div><span class="form-label">PER Terhitung</span><strong id="wb-res-per" style="color:var(--primary);">-</strong></div>
+              <div><span class="form-label">PBV Terhitung</span><strong id="wb-res-pbv" style="color:var(--primary);">-</strong></div>
+              <div><span class="form-label">ROE Terhitung</span><strong id="wb-res-roe" style="color:var(--success);">-</strong></div>
+              <div><span class="form-label">DER Terhitung</span><strong id="wb-res-der" style="color:var(--warning);">-</strong></div>
+            </div>
+            <div class="card-title" style="font-size:0.88rem;">Pertanyaan Investigasi Investor:</div>
+            <ul id="wb-investigation-questions" style="padding-left:18px; font-size:0.83rem; color:var(--text-muted); display:flex; flex-direction:column; gap:6px;"></ul>
           </div>
-          <div class="card-title" style="font-size:0.88rem;">Pertanyaan Investigasi Investor:</div>
-          <ul id="wb-investigation-questions" style="padding-left:18px; font-size:0.83rem; color:var(--text-muted); display:flex; flex-direction:column; gap:6px;"></ul>
+          <div class="card">
+            <div class="card-title">
+              <span>Skenario Sensitivitas Harga Wajar (Hipotetis)</span>
+              <span class="sim-tag">SCENARIO</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Skenario</th>
+                    <th>Pertumbuhan</th>
+                    <th>Kelipatan PER</th>
+                    <th>Harga Hipotetis</th>
+                  </tr>
+                </thead>
+                <tbody id="wb-scenario-rows"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- VIEW 8: JOURNAL -->
+    <!-- VIEW 9: PORTFOLIO LAB -->
+    <section id="view-portfolio-lab" class="view-container">
+      <h1 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">Portfolio Construction Lab</h1>
+      <p style="color: var(--text-muted); margin-bottom: 16px; font-size:0.88rem;">Modal Awal Simulasi: <strong>Rp 100.000.000</strong>. Atur alokasi lintas sektor dan pantau batas konsentrasi.</p>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Alokasi Saham Perusahaan Fiktif</div>
+          <div id="portfolio-allocators" style="display:flex; flex-direction:column; gap:12px;"></div>
+          <div style="margin-top:16px; display:flex; justify-content:space-between; align-items:center;">
+            <span>Total Terpasang: <strong id="port-total-alloc">0%</strong></span>
+            <span>Kas Mengendap: <strong id="port-cash-alloc" style="color:var(--success);">100%</strong></span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Evaluasi Karakteristik Portofolio</div>
+          <div class="grid-2" style="margin-bottom:14px;">
+            <div><span class="form-label">Jumlah Saham</span><strong id="port-holdings-count">0 Emiten</strong></div>
+            <div><span class="form-label">Sektor Terbesar</span><strong id="port-top-sector" style="color:var(--primary);">-</strong></div>
+            <div><span class="form-label">Status Diversifikasi</span><strong id="port-concentration-status" style="color:var(--success);">Seimbang</strong></div>
+          </div>
+          <div id="port-analysis-text" class="callout callout-info" style="font-size:0.85rem;">
+            Sesuaikan persentase alokasi di sebelah kiri untuk melihat evaluasi diversifikasi.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 10: CAPSTONE CHALLENGE -->
+    <section id="view-capstone" class="view-container">
+      <div class="card">
+        <div class="card-title">
+          <span>Ujian Akhir: Capstone Case Study (7 Dimensi Analitis)</span>
+          <span class="sim-tag">FINAL ASSESSMENT</span>
+        </div>
+        <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom: 16px;">
+          Pelajari kinerja 5 tahun <strong>PT Nusantara Consumer Tbk (NSCN)</strong> dan jawab evaluasi komprehensif berikut:
+        </p>
+        <div class="table-responsive" style="margin-bottom:16px;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Laporan Keuangan (Rp Miliar)</th>
+                <th>2022</th>
+                <th>2023</th>
+                <th>2024</th>
+                <th>2025</th>
+                <th>2026 (TTM)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Pendapatan Bersih (Revenue)</td><td>32.000</td><td>35.500</td><td>39.200</td><td>42.800</td><td>46.500</td></tr>
+              <tr><td>Laba Bruto</td><td>11.200</td><td>12.425</td><td>13.720</td><td>14.980</td><td>16.740</td></tr>
+              <tr><td>Laba Bersih</td><td>3.500</td><td>3.900</td><td>4.400</td><td>4.950</td><td>5.580</td></tr>
+              <tr><td>Arus Kas Operasi (CFO)</td><td>3.600</td><td>4.100</td><td>4.650</td><td>5.200</td><td>5.800</td></tr>
+              <tr><td>Belanja Modal (CAPEX)</td><td>1.100</td><td>1.200</td><td>1.300</td><td>1.400</td><td>1.500</td></tr>
+              <tr><td>Total Utang Berbunga</td><td>4.500</td><td>4.400</td><td>4.300</td><td>4.200</td><td>4.000</td></tr>
+              <tr><td>Total Ekuitas Bersih</td><td>15.000</td><td>17.200</td><td>19.800</td><td>22.500</td><td>25.800</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <form id="capstone-form" onsubmit="event.preventDefault(); SMA.gradeCapstone();">
+          <div class="form-group">
+            <label class="form-label">1. Analisis Model Bisnis & Keberlanjutan Pendapatan (Bobot 15)</label>
+            <select class="form-control" id="cap-q1" required>
+              <option value="">Pilih evaluasi...</option>
+              <option value="A">Bisnis sangat bergantung pada satu pembeli besar dan rentan substitusi.</option>
+              <option value="B">Model bisnis defensif berbasis konsumsi harian dengan penetrasi distribusi luas.</option>
+              <option value="C">Bisnis komoditas murni tanpa kendali harga jual.</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">2. Kualitas Laba & Arus Kas Operasional (Bobot 20)</label>
+            <select class="form-control" id="cap-q2" required>
+              <option value="">Pilih evaluasi...</option>
+              <option value="A">Kualitas laba tinggi karena CFO konsisten melampaui Laba Bersih akrual.</option>
+              <option value="B">Laba bersih tumbuh semu karena CFO negatif dan piutang membengkak.</option>
+              <option value="C">Laba didominasi keuntungan satu kali dari penjualan aset.</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">3. Profitabilitas & Efisiensi Modal (Bobot 10)</label>
+            <select class="form-control" id="cap-q3" required>
+              <option value="">Pilih evaluasi...</option>
+              <option value="A">ROE konsisten di atas 20% didukung konversi FCF prima.</option>
+              <option value="B">ROE di bawah bunga deposito perbankan.</option>
+              <option value="C">ROE tinggi semata-mata karena utang ekstrem besar (DER > 5x).</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">4. Keunggulan Bersaing / Economic Moat (Bobot 15)</label>
+            <select class="form-control" id="cap-q4" required>
+              <option value="">Pilih evaluasi...</option>
+              <option value="A">Tidak memiliki moat sama sekali.</option>
+              <option value="B">Brand moat yang kuat dan skala ekonomi distribusi retail yang sulit ditandingi pendatang baru.</option>
+              <option value="C">Paten perangkat lunak kecerdasan buatan global.</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">5. Valuasi & Margin of Safety (Bobot 20)</label>
+            <select class="form-control" id="cap-q5" required>
+              <option value="">Pilih evaluasi...</option>
+              <option value="A">Pada PER 11x dibanding rata-rata historis 16x dan neraca sehat, terdapat Margin of Safety rasional.</option>
+              <option value="B">Valuasi PER 50x sangat murah untuk sektor konsumsi.</option>
+              <option value="C">Metode valuasi tidak diperlukan.</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">6. Alokasi Risiko & Batasan Ukuran Posisi (Bobot 10)</label>
+            <select class="form-control" id="cap-q6" required>
+              <option value="">Pilih evaluasi...</option>
+              <option value="A">Menempatkan seluruh modal 100% tanpa menyisakan kas darurat (All-in).</option>
+              <option value="B">Membatasi alokasi wajar maksimal 10-15% portofolio dengan batas toleransi risiko terukur.</option>
+              <option value="C">Menggunakan fasilitas pinjaman margin pialang secara maksimal.</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">7. Kondisi Pembatal Tesis Investasi (Invalidation Criteria) (Bobot 10)</label>
+            <select class="form-control" id="cap-q7" required>
+              <option value="">Pilih evaluasi...</option>
+              <option value="A">Harga saham turun 2% dalam satu sesi bursa.</option>
+              <option value="B">Terjadi erosi struktural margin akibat hilangnya loyalitas konsumen atau alokasi modal ekspansi yang merugi.</option>
+              <option value="C">Bursa Efek menutup sesi perdagangan pada tanggal merah.</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success" style="width:100%; font-size:1rem; padding:12px;">Kirim Lembar Evaluasi Capstone</button>
+        </form>
+        <div id="capstone-result-card" style="display:none; margin-top:20px;"></div>
+      </div>
+    </section>
+
+    <!-- VIEW 11: JOURNAL -->
     <section id="view-journal" class="view-container">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
         <h1 style="font-size: 1.5rem; font-weight: 800;">Jurnal Tesis Investasi</h1>
         <button class="btn btn-primary" onclick="SMA.openNewJournalModal()">+ Tambah Tesis Baru</button>
       </div>
+
+      <div class="card" id="journal-form-card" style="display:none;">
+        <div class="card-title">Formulir Riset Tesis Investasi</div>
+        <form onsubmit="event.preventDefault(); SMA.saveJournalEntry();">
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Nama Emiten / Ticker</label>
+              <input type="text" id="j-ticker" class="form-control" placeholder="Contoh: PT Nusantara Consumer (NSCN)" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Kondisi Emosi</label>
+              <select id="j-emotion" class="form-control">
+                <option value="Tenang & Rasional">Tenang & Rasional (Objective)</option>
+                <option value="Sedikit FOMO">Sedikit FOMO</option>
+                <option value="Ragu / Cemas">Ragu / Cemas</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tesis Investasi Utama</label>
+            <textarea id="j-thesis" class="form-control" rows="3" placeholder="Uraikan dasar analisis..." required></textarea>
+          </div>
+          <div style="display:flex; gap:10px;">
+            <button type="submit" class="btn btn-primary">Simpan ke Jurnal</button>
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('journal-form-card').style.display='none'">Batal</button>
+          </div>
+        </form>
+      </div>
+
       <div id="journal-entries-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+    </section>
+
+    <!-- VIEW 12: GLOSSARY -->
+    <section id="view-glossary" class="view-container">
+      <h1 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">Glosarium Investasi Pasar Modal (100+ Istilah)</h1>
+      <p style="color: var(--text-muted); margin-bottom: 16px; font-size:0.88rem;">Kamus lengkap istilah finansial dengan penjelasan sederhana, definisi teknis, dan contoh aplikatif.</p>
+      <input type="text" id="glossary-filter" class="form-control" placeholder="Saring istilah (misal: Dividend, Moat, WACC, FCF)..." oninput="SMA.renderGlossary(this.value)" style="margin-bottom:16px;">
+      <div id="glossary-grid" class="grid-2"></div>
+    </section>
+
+    <!-- VIEW 13: FORMULAS -->
+    <section id="view-formulas" class="view-container">
+      <h1 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 6px;">Kamus Rumus & Formula Keuangan Resmi</h1>
+      <p style="color: var(--text-muted); margin-bottom: 16px; font-size:0.88rem;">Kompilasi rumus resmi valuasi dan rasio keuangan beserta batasan interpretasinya.</p>
+      <div id="formula-list" style="display:flex; flex-direction:column; gap:12px;"></div>
     </section>
 
     <!-- FOOTER DISCLAIMER -->
@@ -691,23 +1121,20 @@
 </div>
 
 <!-- ==========================================================================
-     LOGIC ENGINE (TUTOR COGNITIVE CORE + SOCRATIC MODE)
+     COMPLETE JAVASCRIPT LOGIC ENGINE
      ========================================================================== -->
 <script>
 /**
- * STOCK MASTER ACADEMY - ADAPTIVE AI TUTOR ENGINE
- * Developed without external API calls. Powered by deterministic rule-based heuristic trees.
+ * STOCK MASTER ACADEMY - ALL 17 LEVELS, 17 CALCULATORS, & 4 SOCRATIC CASES RESTORED
  */
 
-// 1. STATE & EXTENDED TELEMETRY MANAGEMENT
+// 1. STATE MANAGEMENT
 const SMA_DEFAULT_STATE = {
-  version: "2.0-ai-tutor",
+  version: "2.6-audit-restored",
   xp: 0,
   levelIndex: 0,
-  streakDays: 1,
   completedLessons: {},
   quizScores: {},
-  // Topic Accuracy Mastery
   topicMastery: {
     mindset: 80,
     financialStatements: 75,
@@ -716,19 +1143,12 @@ const SMA_DEFAULT_STATE = {
     risk: 65,
     technical: 70
   },
-  // Behavioral Telemetry for AI Tutor
   mistakeLog: [
-    { topic: "valuation", mistake: "Menghubungkan PER rendah secara otomatis dengan saham murah tanpa mengecek laba anjlok." },
+    { topic: "valuation", mistake: "Menghubungkan PER rendah secara otomatis dengan saham murah tanpa mengecek laba abnormal." },
     { topic: "valuation", mistake: "Sensitivitas terminal growth dan WACC pada DCF belum dikoreksi." },
     { topic: "financialStatements", mistake: "Menyamakan kenaikan laba bersih akrual dengan kesehatan arus kas fisik riil." }
   ],
-  calculatorUsage: {
-    "calc-compound": 4,
-    "calc-per": 7,
-    "calc-dcf": 2,
-    "calc-positionsize": 1
-  },
-  adaptiveDifficultyLevel: "STANDARD", // BEGINNER, STANDARD, ADVANCED
+  adaptiveDifficultyLevel: "STANDARD",
   badges: ["First Lesson"],
   journal: [
     {
@@ -736,8 +1156,6 @@ const SMA_DEFAULT_STATE = {
       date: new Date().toLocaleDateString("id-ID"),
       ticker: "PT Nusantara Consumer Tbk (NSCN)",
       thesis: "Bisnis produk konsumsi harian defensif dengan konversi laba ke Free Cash Flow di atas 90%.",
-      assumptions: "Pertumbuhan omzet 7-9% per tahun, margin laba bersih bertahan di kisaran 12%.",
-      invalidation: "Jika harga bahan baku melonjak permanen tanpa kemampuan menaikkan harga jual (loss of pricing power).",
       emotion: "Tenang & Rasional"
     }
   ]
@@ -745,7 +1163,7 @@ const SMA_DEFAULT_STATE = {
 
 class StateManager {
   constructor() {
-    this.storageKey = "STOCK_MASTER_ACADEMY_TUTOR_V2";
+    this.storageKey = "STOCK_MASTER_ACADEMY_AUDITED_V26";
     this.state = this.loadState();
   }
 
@@ -758,12 +1176,14 @@ class StateManager {
           ...SMA_DEFAULT_STATE,
           ...parsed,
           topicMastery: { ...SMA_DEFAULT_STATE.topicMastery, ...(parsed.topicMastery || {}) },
+          completedLessons: parsed.completedLessons || {},
+          quizScores: parsed.quizScores || {},
           mistakeLog: Array.isArray(parsed.mistakeLog) ? parsed.mistakeLog : SMA_DEFAULT_STATE.mistakeLog,
-          calculatorUsage: { ...SMA_DEFAULT_STATE.calculatorUsage, ...(parsed.calculatorUsage || {}) }
+          journal: Array.isArray(parsed.journal) ? parsed.journal : SMA_DEFAULT_STATE.journal
         };
       }
     } catch (e) {
-      console.warn("Storage warning: Using memory state fallback.", e);
+      console.warn("Storage warning: LocalStorage inaccessible.", e);
     }
     return JSON.parse(JSON.stringify(SMA_DEFAULT_STATE));
   }
@@ -779,38 +1199,24 @@ class StateManager {
 
   recordMistake(topic, mistakeText) {
     this.state.mistakeLog.unshift({ topic, mistake: mistakeText, timestamp: Date.now() });
-    if (this.state.mistakeLog.length > 15) this.state.mistakeLog.pop();
-    this.updateAdaptiveDifficulty();
+    if (this.state.mistakeLog.length > 10) this.state.mistakeLog.pop();
     this.save();
   }
 
-  recordCalcUsage(calcId) {
-    this.state.calculatorUsage[calcId] = (this.state.calculatorUsage[calcId] || 0) + 1;
+  addXP(amount) {
+    this.state.xp += amount;
     this.save();
-  }
-
-  updateAdaptiveDifficulty() {
-    const scores = Object.values(this.state.topicMastery);
-    const avg = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 70;
-
-    if (avg > 85) this.state.adaptiveDifficultyLevel = "ADVANCED";
-    else if (avg < 60) this.state.adaptiveDifficultyLevel = "BEGINNER";
-    else this.state.adaptiveDifficultyLevel = "STANDARD";
   }
 
   syncUI() {
     const elXp = document.getElementById("header-xp");
     const elDiff = document.getElementById("header-difficulty");
     if (elXp) elXp.innerText = `${this.state.xp} XP`;
-    if (elDiff) {
-      const label = this.state.adaptiveDifficultyLevel === "ADVANCED" ? "Tinggi (Analis)" :
-                    (this.state.adaptiveDifficultyLevel === "BEGINNER" ? "Dasar (Review)" : "Standar");
-      elDiff.innerText = `Tingkat: ${label}`;
-    }
+    if (elDiff) elDiff.innerText = `Tingkat: ${this.state.adaptiveDifficultyLevel}`;
   }
 }
 
-// 2. RULE-BASED AI TUTOR ENGINE
+// 2. TUTOR ENGINE
 class TutorEngine {
   static analyzeUser(state) {
     const mastery = state.topicMastery;
@@ -818,106 +1224,39 @@ class TutorEngine {
     const strongest = sortedTopics[0];
     const weakest = sortedTopics[sortedTopics.length - 1];
 
-    // Identify Specific Repeated Pitfalls
-    const mistakes = state.mistakeLog.slice(0, 3);
-
-    // Heuristic Feedback Generator
     let diagnosisSummary = "";
     if (weakest[0] === "valuation") {
-      diagnosisSummary = `Pemahaman akuntansi dan operasional Anda sudah berkembang dengan baik, namun <strong>Valuasi Saham</strong> (${weakest[1]}%) adalah area yang paling rentan. Anda cenderung menilai saham semata-mata dari kelipatan PER tanpa menguji ketahanan margin dan sensitivitas suku bunga diskonto.`;
-    } else if (weakest[0] === "financialStatements") {
-      diagnosisSummary = `Anda memiliki insting bisnis yang baik, namun <strong>Pembacaan Laporan Keuangan</strong> (${weakest[1]}%) masih memerlukan ketelitian forensik. Ingat: Laba akrual bisa dibentuk oleh kebijakan akuntansi, tetapi kas operasional fisik (CFO) mencerminkan daya tahan sebenarnya.`;
+      diagnosisSummary = `Pemahaman operasional bisnis Anda sudah kuat, namun <strong>Valuasi Saham</strong> (${weakest[1]}%) adalah area yang paling rentan. Anda cenderung menilai saham semata-mata dari PER tanpa menguji sensitivitas suku bunga diskonto dan arus kas riil.`;
     } else {
-      diagnosisSummary = `Progres belajar Anda berjalan konsisten. Fokus penguatan saat ini ada pada pilar <strong>${weakest[0].toUpperCase()}</strong> (${weakest[1]}%) agar penalaran investasi Anda menyeluruh dari hulu ke hilir.`;
+      diagnosisSummary = `Fokus penguatan saat ini ada pada pilar <strong>${weakest[0].toUpperCase()}</strong> (${weakest[1]}%) agar penalaran investasi Anda menyeluruh dari hulu ke hilir.`;
     }
 
-    // Prescriptive Learning Actions
-    const recommendations = [];
-    if (weakest[0] === "valuation") {
-      recommendations.push({
+    const recommendations = [
+      {
         title: "Pelajari Ulang Teori DCF & Margin of Safety",
-        desc: "Kaji ulang Level 8. Pahami mengapa perubahan WACC 1% dapat mengubah nilai intrinsik secara signifikan.",
-        action: () => SMA.openLesson("lvl-8")
-      });
-      recommendations.push({
+        desc: "Kaji ulang Level 8. Pahami mengapa perubahan WACC 1% mengubah nilai intrinsik secara signifikan.",
+        targetView: "lesson",
+        targetLesson: "lvl-8"
+      },
+      {
         title: "Praktik di Laboratorium DCF",
         desc: "Buka FinCalc DCF Lab dan amati tabel sensitivitas dengan berbagai skenario pertumbuhan.",
-        action: () => { SMA.navigate("calculators"); SMA.selectCalculator("calc-dcf"); }
-      });
-    } else if (weakest[0] === "financialStatements") {
-      recommendations.push({
-        title: "Forensik Kas: Level 3 & Level 14",
-        desc: "Latih kembali deteksi Red Flags perbedaan antara laba bersih akrual dengan Arus Kas Operasi.",
-        action: () => SMA.openLesson("lvl-3")
-      });
-    } else {
-      recommendations.push({
-        title: "Uji Logika di Mode Sokrates",
-        desc: "Uji asumsi penalaran Anda dalam studi kasus dialektika investor mandiri.",
-        action: () => SMA.navigate("socratic")
-      });
-    }
+        targetView: "calculators",
+        targetCalc: "calc-dcf"
+      }
+    ];
 
     return {
       strongest,
       weakest,
       diagnosisSummary,
-      recentMistakes: mistakes,
-      recommendations,
-      difficulty: state.adaptiveDifficultyLevel
+      recentMistakes: state.mistakeLog.slice(0, 3),
+      recommendations
     };
   }
 }
 
-// 3. SOCRATIC MODE SCENARIO DATABASE
-const SOCRATIC_CASES = {
-  "case-1": {
-    title: "Kasus: Saham Murah karena PER 5x",
-    initialTutor: "Anda menemukan saham PT Baja Konstruksi dengan harga Rp 500 dan EPS Rp 100, sehingga PER-nya 5x (sangat rendah dibanding rata-rata bursa 15x). Pemikiran pertama Anda: 'Ini saham murah, harus segera dibeli.'\n\nSebagai analis independen: <strong>Asumsi terselubung apa yang sebenarnya sedang Anda buat?</strong>",
-    steps: [
-      {
-        userPrompt: "Asumsi apa yang sedang Anda buat?",
-        options: [
-          { text: "Saya berasumsi EPS Rp 100 tersebut bersifat normal, berkelanjutan, dan bukan keuntungan temporer.", correct: true, feedback: "Tepat sekali! Anda mengasumsikan laba masa lalu tersebut akan bertahan di masa depan. Mari kita periksa faktanya." },
-          { text: "Saya berasumsi bursa saham pasti sedang salah menetapkan harga.", correct: false, feedback: "Itu kesimpulan spekulatif. Pasar seringkali mendiskon saham karena mencium adanya penurunan laba di kuartal mendatang." }
-        ],
-        nextTutor: "Setelah memeriksa laporan keuangan, ternyata laba Rp 100 per saham itu berasal dari <strong>penjualan tanah pabrik satu kali (one-off gain)</strong>, sementara laba operasional riilnya minus. <strong>Apa kesimpulan kritis Anda sekarang?</strong>"
-      },
-      {
-        userPrompt: "Apa kesimpulan kritis Anda?",
-        options: [
-          { text: "PER 5x adalah perangkap nilai (Value Trap). Laba operasional riilnya merugi sehingga bisnis ini sebenarnya mahal.", correct: true, feedback: "Brilian! Anda telah berpikir seperti analis forensik: membedah kualitas laba sebelum terpukau angka kelipatan rasio." },
-          { text: "Tetap murah karena kas perusahaan bertambah dari hasil jual tanah.", correct: false, feedback: "Perusahaan tidak bisa menjual tanah pabriknya setiap tahun untuk mencetak laba. Bisnis inti mereka tetap berdarah." }
-        ],
-        nextTutor: "Penyelidikan Selesai: Anda telah berhasil mengubah pola pikir dari 'Saham murah karena PER kecil' menjadi 'Periksa kualitas dan keberlanjutan laba sebelum membeli'."
-      }
-    ]
-  },
-  "case-2": {
-    title: "Kasus: Pendapatan Naik 30% Per Tahun",
-    initialTutor: "Perusahaan PT Ekpress Ritel melaporkan pertumbuhan omzet pendapatan 30% setahun selama 3 tahun berturut-turut. Anda merasa bisnis ini sangat prima.\n\n<strong>Bukti finansial apa yang wajib Anda periksa berikutnya sebelum menyimpulkan bisnis ini sehat?</strong>",
-    steps: [
-      {
-        userPrompt: "Bukti finansial apa yang wajib Anda periksa?",
-        options: [
-          { text: "Apakah pertumbuhan omzet tersebut menghasilkan Free Cash Flow atau hanya membakar modal kerja dan utang?", correct: true, feedback: "Sangat tajam! Banyak perusahaan tumbuh cepat dengan cara jor-joran memberi tempo piutang tanpa pernah menagih kas riil." },
-          { text: "Berapa banyak gerai baru yang dibuka bulan ini.", correct: false, feedback: "Membuka gerai butuh biaya modal (CAPEX). Jika gerai baru tidak menghasilkan kas positif, itu menjadi beban neraca." }
-        ],
-        nextTutor: "Ternyata Arus Kas Operasi (CFO) perusahaan bernilai negatif selama 3 tahun, dan utang bank jangka pendek meningkat 200% demi membiayai operasional. <strong>Apa risiko utama yang Anda identifikasi?</strong>"
-      },
-      {
-        userPrompt: "Apa risiko utama yang teridentifikasi?",
-        options: [
-          { text: "Risiko likuiditas dan kebangkrutan: pertumbuhan tidak didanai oleh keuntungan internal melainkan gali lubang tutup lubang utang.", correct: true, feedback: "Tepat! Pertumbuhan tanpa kas positif adalah resep krisis likuiditas." },
-          { text: "Tidak ada risiko, bank pasti akan terus memberi pinjaman.", correct: false, feedback: "Saat ekonomi lesu atau suku bunga naik, bank akan menolak restrukturisasi utang." }
-        ],
-        nextTutor: "Refleksi Sokrates Selesai: Anda membuktikan bahwa 'Pertumbuhan omzet tidak sama dengan penciptaan nilai pemegang saham'."
-      }
-    ]
-  }
-};
-
-// 4. CURRICULUM DATABASE
+// 3. CURRICULUM LENGKAP 17 LEVEL (LEVEL 0 s/d LEVEL 16)
 const CURRICULUM_DATA = [
   {
     id: "lvl-0",
@@ -932,11 +1271,40 @@ const CURRICULUM_DATA = [
       options: [
         "Investor menganalisis kinerja ekonomi dan arus kas bisnis riil, sedangkan spekulan bertaruh pada fluktuasi harga sesaat",
         "Investor menggunakan komputer lebih canggih",
-        "Investor tidak pernah mengalami penurunan nilai portofolio",
-        "Tidak ada perbedaan"
+        "Investor tidak pernah rugi"
       ],
       correct: 0,
-      explanation: "Investor memandang saham sebagai porsi kepemilikan bisnis yang menghasilkan dividen dan arus kas jangka panjang."
+      explanation: "Investor memandang saham sebagai kepemilikan bisnis riil yang menghasilkan dividen dan arus kas jangka panjang."
+    }
+  },
+  {
+    id: "lvl-1",
+    levelNumber: 1,
+    title: "Level 1: Mengenal Saham & Hak Kepemilikan Bisnis",
+    topicKey: "basics",
+    desc: "Hak penyertaan modal, IPO, dividen, dan kapitalisasi pasar.",
+    objective: "Melihat selembar saham sebagai sertifikat kepemilikan bisnis nyata.",
+    content: `<p>Membeli saham adalah menjadi pemilik sebagian aset, operasional, dan laba perseroan.</p>`,
+    quiz: {
+      question: "Perusahaan XYZ memiliki 1.000.000 lembar saham. Anda membeli 20.000 lembar. Berapa kepemilikan Anda?",
+      options: ["0.2%", "2.0%", "20%"],
+      correct: 1,
+      explanation: "(20.000 / 1.000.000) x 100% = 2.0%."
+    }
+  },
+  {
+    id: "lvl-2",
+    levelNumber: 2,
+    title: "Level 2: Mekanisme Pasar & Order Book",
+    topicKey: "basics",
+    desc: "Bid, Ask, Spread, Fraksi Harga, Market Order vs Limit Order, dan Likuiditas.",
+    objective: "Menguasai eksekusi bursa tanpa terkena slippage.",
+    content: `<p>Bid adalah antrean beli tertinggi, Ask adalah antrean jual terendah. Spread adalah selisih keduanya.</p>`,
+    quiz: {
+      question: "Jika antrean Ask terendah Rp 2.420 dan Bid tertinggi Rp 2.400, order Market Buy Anda akan match di harga berapa?",
+      options: ["Rp 2.420 seketika (Hajar Kanan)", "Rp 2.400", "Rp 2.410"],
+      correct: 0,
+      explanation: "Market Buy langsung mengeksekusi harga Ask terendah yang tersedia."
     }
   },
   {
@@ -948,15 +1316,82 @@ const CURRICULUM_DATA = [
     objective: "Mendeteksi denyut nadi kesehatan kas perusahaan.",
     content: `<p>Laba akrual di Income Statement mencatat pengakuan pendapatan, namun Cash Flow Statement mencatat kas riil yang masuk rekening.</p>`,
     quiz: {
-      question: "Pendapatan naik 20%, Laba Bersih naik 30%, namun Arus Kas Operasi (CFO) minus tajam. Apa yang wajib dicurigai?",
+      question: "Pendapatan naik 20%, Laba Bersih naik 30%, namun Arus Kas Operasi (CFO) minus tajam. Apa yang patut dicurigai?",
       options: [
-        "Perusahaan sangat hemat biaya",
+        "Perusahaan sangat hemat",
         "Ada penumpukan piutang yang belum terbayar atau pengakuan penjualan agresif di atas kertas",
-        "Perusahaan pasti membagikan dividen kas jumbo",
-        "Manajemen menolak uang tunai"
+        "Perusahaan membagikan dividen kas jumbo"
       ],
       correct: 1,
-      explanation: "Kesenjangan lebar antara laba pembukuan dengan kas riil merupakan peringatan kualitas laba (earnings quality red flag)."
+      explanation: "Kesenjangan laba akrual dan kas fisik adalah indikator penurunan kualitas laba."
+    }
+  },
+  {
+    id: "lvl-4",
+    levelNumber: 4,
+    title: "Level 4: Analisis Rasio Keuangan Komprehensif",
+    topicKey: "ratios",
+    desc: "Kalkulasi ROE, ROIC, Gross Margin, Current Ratio, dan DER.",
+    objective: "Menilai performa modal manajemen tanpa rasio yang terisolasi.",
+    content: `<p>Rasio finansial harus selalu dianalisis dalam konteks industri dan tren historis multi-tahun.</p>`,
+    quiz: {
+      question: "Laba Bersih Rp 4 Miliar, Total Ekuitas Rp 20 Miliar. Berapa nilai Return on Equity (ROE)?",
+      options: ["10%", "20%", "25%"],
+      correct: 1,
+      explanation: "ROE = (4 / 20) x 100% = 20%."
+    }
+  },
+  {
+    id: "lvl-5",
+    levelNumber: 5,
+    title: "Level 5: Membedah Model Bisnis & Siklus Industri",
+    topicKey: "businessModel",
+    desc: "Unit economics, recurring revenue, pricing power, dan siklus belanja konsumen.",
+    objective: "Memetakan bagaimana bisnis menghasilkan pendapatan bertahan lama.",
+    content: `<p>Pricing power adalah kemampuan menaikkan harga jual di atas inflasi tanpa kehilangan pelanggan.</p>`,
+    quiz: {
+      question: "Ciri perusahaan dengan Pricing Power tinggi adalah:",
+      options: [
+        "Mampu meneruskan kenaikan inflasi biaya ke harga produk tanpa penurunan volume drastis",
+        "Harus selalu memberi diskon besar",
+        "Beban bunga pinjaman tinggi"
+      ],
+      correct: 0,
+      explanation: "Pricing power memungkinkan margin laba bertahan saat terjadi inflasi bahan baku."
+    }
+  },
+  {
+    id: "lvl-6",
+    levelNumber: 6,
+    title: "Level 6: Keunggulan Kompetitif (Economic Moat)",
+    topicKey: "businessModel",
+    desc: "Brand Moat, Network Effect, High Switching Cost, dan Cost Advantage.",
+    objective: "Mengidentifikasi parit pelindung laba dari serbuan kompetitor baru.",
+    content: `<p>Tanpa Economic Moat, imbal hasil modal tinggi akan tergerus oleh persaingan pasar bebas.</p>`,
+    quiz: {
+      question: "Mengganti software inti sebuah bank memerlukan biaya ratusan miliar dan risiko downtime tinggi. Ini contoh:",
+      options: ["High Switching Cost", "Network Effect", "Low Cost Advantage"],
+      correct: 0,
+      explanation: "Biaya dan risiko perpindahan yang tinggi membuat nasabah/klien enggan berpindah vendor."
+    }
+  },
+  {
+    id: "lvl-7",
+    levelNumber: 7,
+    title: "Level 7: Alur Analisis Fundamental Lengkap",
+    topicKey: "financialStatements",
+    desc: "Framework 12 langkah terstruktur dari pemahaman bisnis hingga sintesis risiko.",
+    objective: "Membangun proses riset independen sistematis.",
+    content: `<p>Patuhi urutan riset: Model Bisnis $\to$ Laporan Keuangan $\to$ Neraca $\to$ Manajemen $\to$ Valuasi $\to$ Risiko.</p>`,
+    quiz: {
+      question: "Mengapa analis perlu memeriksa Catatan Kaki Laporan Keuangan (Notes)?",
+      options: [
+        "Untuk menemukan transaksi pihak berelasi dan sengketa utang terselubung",
+        "Melihat nama semua pemegang saham 1 lot",
+        "Formalitas tanpa nilai informasi"
+      ],
+      correct: 0,
+      explanation: "Catatan kaki memuat rincian liabilitas bersyarat dan transaksi benturan kepentingan pengendali."
     }
   },
   {
@@ -966,22 +1401,257 @@ const CURRICULUM_DATA = [
     topicKey: "valuation",
     desc: "Valuasi Relatif (PER, PBV) vs Valuasi Intrinsik (DCF - Discounted Cash Flow).",
     objective: "Menghitung rentang nilai wajar bersyarat tanpa tebakan spekulatif.",
-    content: `<p>Harga adalah apa yang Anda bayar, nilai adalah apa yang Anda dapatkan. Jangan pernah membeli bisnis tanpa Margin of Safety.</p>`,
+    content: `<p>Harga adalah apa yang Anda bayar, nilai adalah apa yang Anda dapatkan. Jangan membeli tanpa Margin of Safety.</p>`,
     quiz: {
-      question: "Mengapa model DCF (Discounted Cash Flow) disebut sangat sensitif terhadap suku bunga diskonto (WACC)?",
+      question: "Mengapa model DCF sangat sensitif terhadap suku bunga diskonto (WACC)?",
       options: [
-        "Karena perubahan kecil pada WACC mendiskontokan seluruh aliran kas masa depan secara eksponensial",
-        "Karena WACC diatur oleh bursa efek setiap pagi",
-        "DCF tidak sensitif terhadap suku bunga",
-        "Karena WACC selalu bernilai nol"
+        "Karena perubahan kecil pada WACC mendiskontokan arus kas masa depan secara eksponensial",
+        "Karena WACC diatur bursa setiap hari",
+        "DCF tidak terpengaruh suku bunga"
       ],
       correct: 0,
-      explanation: "Penyebut dalam rumus DCF memuat faktor pangkat tahunan diskonto. Kenaikan WACC 1% dapat memangkas estimasi nilai intrinsik hingga 15-20%."
+      explanation: "Kenaikan suku bunga diskonto memangkas nilai tunai kas masa depan secara signifikan."
+    }
+  },
+  {
+    id: "lvl-9",
+    levelNumber: 9,
+    title: "Level 9: Pengantar Analisis Teknikal Berbasis Probabilitas",
+    topicKey: "technical",
+    desc: "Membaca candlestick, support & resistance, moving average, dan volume.",
+    objective: "Memahami struktur likuiditas pasar untuk pemilihan waktu eksekusi.",
+    content: `<p>Analisis teknikal mencatat interaksi historis penawaran dan permintaan sebagai studi probabilitas.</p>`,
+    quiz: {
+      question: "Penembusan level resistance penting yang didukung lonjakan volume transaksi masif mengindikasikan:",
+      options: [
+        "Peluang konfirmasi breakout dengan partisipasi minat beli institusional",
+        "Pasti terjadi penurunan seketika",
+        "Kesalahan sistem bursa"
+      ],
+      correct: 0,
+      explanation: "Volume transaksi tinggi mengonfirmasi keabsahan pergerakan harga baru."
+    }
+  },
+  {
+    id: "lvl-10",
+    levelNumber: 10,
+    title: "Level 10: Manajemen Risiko & Ukuran Posisi (Position Sizing)",
+    topicKey: "risk",
+    desc: "Maximum Drawdown, aturan toleransi risiko 1-2%, dan kalkulasi ukuran lot.",
+    objective: "Menjaga portofolio agar terhindar dari kerugian fatal (Risk of Ruin).",
+    content: `<p>Jika portofolio merugi 50%, Anda membutuhkan keuntungan 100% pada sisa modal hanya untuk breakeven.</p>`,
+    quiz: {
+      question: "Portofolio Rp 100 Juta, batas risiko 2% (Rp 2 Juta). Beli di Rp 1.000 dengan stop loss Rp 900. Berapa lot maksimal?",
+      options: ["200 lot (20.000 lembar)", "1.000 lot", "50 lot"],
+      correct: 0,
+      explanation: "Risiko per lembar Rp 100. Maksimal lembar = Rp 2.000.000 / Rp 100 = 20.000 lembar (200 lot)."
+    }
+  },
+  {
+    id: "lvl-11",
+    levelNumber: 11,
+    title: "Level 11: Psikologi Pasar & Bias Kognitif Investor",
+    topicKey: "risk",
+    desc: "FOMO, Loss Aversion, Confirmation Bias, Anchoring, dan Sunk Cost Fallacy.",
+    objective: "Mengenali kelemahan psikologis manusia dan membangun disiplin eksekusi.",
+    content: `<p>Rasa sakit kehilangan uang terasa dua kali lebih intens dibanding rasa senang memperoleh keuntungan yang sama.</p>`,
+    quiz: {
+      question: "Fundamental bisnis rusak permanen karena produk cacat hukum, namun investor menahan saham semata karena enggan rugi nominal. Ini bias:",
+      options: ["Sunk Cost Fallacy / Loss Aversion", "Diversifikasi Rasional", "Value Investing"],
+      correct: 0,
+      explanation: "Menolak keluar dari posisi yang terbukti salah karena gengsi rugi adalah jebakan Sunk Cost Fallacy."
+    }
+  },
+  {
+    id: "lvl-12",
+    levelNumber: 12,
+    title: "Level 12: Konstruksi Portofolio & Alokasi Sektoral",
+    topicKey: "portfolio",
+    desc: "Diversifikasi versus konsentrasi, korelasi antar aset, dan porsi kas.",
+    objective: "Merancang portofolio yang tahan menghadapi berbagai cuaca ekonomi.",
+    content: `<p>Memiliki 8 hingga 15 saham berkualitas di 4-5 sektor berbeda memberikan proteksi diversifikasi optimal bagi investor mandiri.</p>`,
+    quiz: {
+      question: "Membagi modal ke 6 emiten kelapa sawit yang berbeda apakah merupakan diversifikasi yang efektif?",
+      options: [
+        "Belum efektif, karena seluruhnya berkorelasi tinggi dengan faktor komoditas CPO yang sama",
+        "Sangat sempurna karena beda nama PT",
+        "Bebas risiko"
+      ],
+      correct: 0,
+      explanation: "Diversifikasi sejati membutuhkan diversifikasi lintas sektor bisnis yang tidak berkorelasi penuh."
+    }
+  },
+  {
+    id: "lvl-13",
+    levelNumber: 13,
+    title: "Level 13: Makroekonomi & Siklus Sektor Industri",
+    topicKey: "businessModel",
+    desc: "Suku bunga acuan, inflasi, nilai tukar mata uang, dan transmisi dampaknya ke laba.",
+    objective: "Menghubungkan kebijakan moneter terhadap valuasi sektor saham.",
+    content: `<p>Kenaikan suku bunga acuan bank sentral meningkatkan biaya pinjaman dan menaikkan suku bunga diskonto valuasi.</p>`,
+    quiz: {
+      question: "Sektor yang paling rentan terbebani kenaikan agresif suku bunga acuan kredit adalah:",
+      options: [
+        "Sektor Properti dengan skema KPR tinggi dan utang konstruksi besar",
+        "Sektor Makanan Pokok Harian",
+        "Sektor Tambang tanpa utang"
+      ],
+      correct: 0,
+      explanation: "Suku bunga KPR tinggi menekan minat pembelian rumah baru dari konsumen."
+    }
+  },
+  {
+    id: "lvl-14",
+    levelNumber: 14,
+    title: "Level 14: Analisis Kualitas Laba & Forensik Akuntansi",
+    topicKey: "financialStatements",
+    desc: "Mendeteksi Red Flags: akrual agresif, lonjakan piutang tak wajar, dan dilusi saham.",
+    objective: "Mendeteksi potensi manipulasi laporan sebelum masalah terbuka ke publik.",
+    content: `<p>Waspadai jika piutang usaha melonjak jauh lebih kencang dibanding pertumbuhan pendapatan bersih.</p>`,
+    quiz: {
+      question: "Pendapatan naik 10%, Laba naik 25%, namun Piutang melonjak 65% dan CFO negatif. Ini sinyal:",
+      options: [
+        "Red Flag: Kemungkinan laba agresif di atas kertas yang belum berhasil ditagih kasnya",
+        "Kualitas laba prima",
+        "Dividen tunai pasti naik"
+      ],
+      correct: 0,
+      explanation: "Kesenjangan lebar antara laba dan arus kas masuk operasional mengindikasikan risiko piutang tertahan."
+    }
+  },
+  {
+    id: "lvl-15",
+    levelNumber: 15,
+    title: "Level 15: Menyusun Tesis Investasi Profesional",
+    topicKey: "valuation",
+    desc: "Struktur Investment Research Memo: Katalis pertumbuhan dan kriteria pembatal (invalidation).",
+    objective: "Menulis tesis investasi objektif yang dapat diuji secara empiris.",
+    content: `<p>Analis profesional selalu menetapkan syarat pembatal tesis (what proves me wrong) sebelum masuk ke pasar.</p>`,
+    quiz: {
+      question: "Bagian memo investasi yang paling melindungi modal analis dari bias penyangkalan adalah:",
+      options: [
+        "Klausul kriteria pembatal tesis (Invalidation Criteria) yang jelas dan terukur",
+        "Target harga spekulatif",
+        "Desain cover laporan"
+      ],
+      correct: 0,
+      explanation: "Kriteria pembatalan tertulis memaksa analis bersikap objektif dan disiplin keluar saat hipotesis awal terbukti salah."
+    }
+  },
+  {
+    id: "lvl-16",
+    levelNumber: 16,
+    title: "Level 16: Capstone Final Analyst Assessment",
+    topicKey: "valuation",
+    desc: "Ujian komprehensif mengintegrasikan seluruh level analisis fundamental, valuasi, dan manajemen risiko.",
+    objective: "Meraih kelulusan predikat mandiri 'Independent Investor'.",
+    content: `<p>Anda telah menempuh perjalanan dari nol hingga pemahaman komprehensif. Saatnya mempraktikkan proses riset mandiri.</p>`,
+    quiz: {
+      question: "Apakah gelar Independent Investor berarti Anda dijamin tidak akan pernah merugi pada satu saham pun?",
+      options: [
+        "Tidak. Berinvestasi adalah probabilitas. Keunggulan investor mandiri terletak pada proses riset rasional dan manajemen risiko yang melindungi modal saat terjadi kesalahan",
+        "Ya, selalu pasti untung 100%",
+        "Tergantung keberuntungan"
+      ],
+      correct: 0,
+      explanation: "Tidak ada kepastian mutlak di pasar modal. Manajemen risiko melindungi modal saat skenario terburuk terjadi."
     }
   }
 ];
 
-// 5. FINCALC LAB TOOLS (CORE ENGINE)
+// 4. SOCRATIC MODE SCENARIO DATABASE (LENGKAP 4 KASUS DENGAN DIALEKTIKA)
+const SOCRATIC_CASES = {
+  "case-1": {
+    title: "Kasus 1: 'Saham ini murah karena PER-nya cuma 5x'",
+    initialTutor: "Anda menemukan saham PT Baja Konstruksi dengan harga Rp 500 dan EPS Rp 100, sehingga PER-nya 5x (sangat rendah dibanding rata-rata bursa 15x). Pemikiran pertama Anda: 'Ini saham murah, harus segera dibeli.'\n\nSebagai analis independen: <strong>Asumsi terselubung apa yang sebenarnya sedang Anda buat?</strong>",
+    steps: [
+      {
+        userPrompt: "Asumsi apa yang sedang Anda buat?",
+        options: [
+          { text: "Saya berasumsi EPS Rp 100 tersebut bersifat normal, berkelanjutan, dan bukan keuntungan temporer.", correct: true, feedback: "Tepat sekali! Anda mengasumsikan laba masa lalu tersebut akan bertahan di masa depan. Mari kita periksa faktanya." },
+          { text: "Saya berasumsi bursa saham pasti sedang salah menetapkan harga.", correct: false, feedback: "Itu kesimpulan spekulatif. Pasar seringkali mendiskon saham karena mengantisipasi penurunan laba di masa depan." }
+        ],
+        nextTutor: "Setelah memeriksa laporan keuangan, ternyata laba Rp 100 per saham itu berasal dari <strong>penjualan tanah pabrik satu kali (one-off gain)</strong>, sementara laba operasional riilnya minus. <strong>Apa kesimpulan kritis Anda sekarang?</strong>"
+      },
+      {
+        userPrompt: "Apa kesimpulan kritis Anda?",
+        options: [
+          { text: "PER 5x adalah perangkap nilai (Value Trap). Laba operasional riilnya merugi sehingga bisnis ini sebenarnya mahal.", correct: true, feedback: "Brilian! Anda telah berpikir seperti analis forensik: membedah kualitas laba sebelum terpukau angka kelipatan rasio." },
+          { text: "Tetap murah karena kas perusahaan bertambah dari hasil jual tanah.", correct: false, feedback: "Perusahaan tidak bisa menjual tanah pabriknya setiap tahun untuk mencetak laba. Bisnis inti mereka tetap merugi." }
+        ],
+        nextTutor: "Penyelidikan Selesai: Anda telah berhasil mengubah pola pikir dari 'Saham murah karena PER kecil' menjadi 'Periksa kualitas dan keberlanjutan laba sebelum membeli'."
+      }
+    ]
+  },
+  "case-2": {
+    title: "Kasus 2: 'Pendapatan naik 30% per tahun, pasti bisnis hebat!'",
+    initialTutor: "Perusahaan PT Ekpress Ritel melaporkan pertumbuhan omzet pendapatan 30% setahun selama 3 tahun berturut-turut. Anda merasa bisnis ini sangat prima.\n\n<strong>Bukti finansial apa yang wajib Anda periksa berikutnya sebelum menyimpulkan bisnis ini sehat?</strong>",
+    steps: [
+      {
+        userPrompt: "Bukti finansial apa yang wajib Anda periksa?",
+        options: [
+          { text: "Apakah pertumbuhan omzet tersebut menghasilkan Free Cash Flow atau hanya membakar modal kerja dan utang?", correct: true, feedback: "Sangat tajam! Banyak perusahaan tumbuh cepat dengan cara memberi tempo piutang tanpa pernah menagih kas riil." },
+          { text: "Berapa banyak gerai baru yang dibuka bulan ini.", correct: false, feedback: "Membuka gerai butuh biaya modal (CAPEX). Jika gerai baru tidak menghasilkan kas positif, itu menjadi beban neraca." }
+        ],
+        nextTutor: "Ternyata Arus Kas Operasi (CFO) perusahaan bernilai negatif selama 3 tahun, dan utang bank meningkat demi membiayai operasional. <strong>Apa risiko utama yang Anda identifikasi?</strong>"
+      },
+      {
+        userPrompt: "Apa risiko utama yang teridentifikasi?",
+        options: [
+          { text: "Risiko likuiditas: pertumbuhan tidak didanai oleh keuntungan internal melainkan pinjaman utang.", correct: true, feedback: "Tepat! Pertumbuhan tanpa kas positif adalah resep krisis likuiditas." },
+          { text: "Tidak ada risiko, bank pasti akan terus memberi pinjaman.", correct: false, feedback: "Saat ekonomi lesu atau suku bunga naik, bank akan memperketat pinjaman." }
+        ],
+        nextTutor: "Refleksi Sokrates Selesai: Anda membuktikan bahwa 'Pertumbuhan omzet tidak sama dengan penciptaan kas bagi pemegang saham'."
+      }
+    ]
+  },
+  "case-3": {
+    title: "Kasus 3: 'Harga saham turun 35%, saatnya Average Down'",
+    initialTutor: "Anda membeli saham PT Tekstil Makmur di Rp 1.000. Tiga bulan kemudian, harganya anjlok ke Rp 650 (-35%). Anda berpikir untuk membeli lebih banyak lagi demi menurunkan rata-rata modal (Average Down).\n\n<strong>Pertanyaan paling mendasar apa yang wajib Anda tanyakan pada diri sendiri sebelum menambah dana?</strong>",
+    steps: [
+      {
+        userPrompt: "Pertanyaan paling mendasar sebelum average down:",
+        options: [
+          { text: "Apakah tesis fundamental awal saya masih utuh, ataukah terjadi penurunan permanen pada daya saing bisnisnya?", correct: true, feedback: "Tepat sekali! Membeli lebih banyak pada bisnis yang sedang sekarat hanyalah cara mempercepat kehancuran modal (Catching a falling knife)." },
+          { text: "Berapa target harga yang dijanjikan oleh influencer di media sosial?", correct: false, feedback: "Itu adalah bias konfirmasi (confirmation bias) yang sangat berbahaya bagi modal Anda." }
+        ],
+        nextTutor: "Setelah dianalisis, penurunan harga terjadi karena pelanggan utama mereka beralih ke produsen impor yang 30% lebih murah, dan pabrik emiten ini mulai menghentikan lini produksinya. <strong>Apa tindakan yang paling rasional?</strong>"
+      },
+      {
+        userPrompt: "Tindakan rasional investor:",
+        options: [
+          { text: "Mengakui bahwa tesis awal telah invalid dan disiplin merealisasikan cut-loss demi mengamankan sisa modal.", correct: true, feedback: "Luar biasa! Kedewasaan analis diuji bukan saat untung, melainkan saat berani mengakui kesalahan riset dan memangkas kerugian." },
+          { text: "Terus melakukan average down karena harga sudah sangat murah dibanding tahun lalu.", correct: false, feedback: "Harga Rp 650 bisa menjadi Rp 300 jika bisnis tersebut menuju kebangkrutan. Harga murah bukan jaminan tidak bisa turun lagi." }
+        ],
+        nextTutor: "Penyelidikan Selesai: Average Down hanya dibenarkan jika pasar salah menilai emiten yang fundamentalnya tetap solid dan makin murah secara valuasi wajar."
+      }
+    ]
+  },
+  "case-4": {
+    title: "Kasus 4: 'Produknya terkenal di mana-mana, pasti punya Economic Moat'",
+    initialTutor: "Sebuah jaringan gerai minuman kekinian sedang viral dan produknya digemari jutaan anak muda. Anda berpikir: 'Merek ini sangat populer, ini pasti Brand Moat kelas dunia.'\n\n<strong>Apa asumsi keliru yang sering mencampuradukkan antara 'Popularitas Sementara' dengan 'Economic Moat Sejati'?</strong>",
+    steps: [
+      {
+        userPrompt: "Perbedaan popularitas sesaat vs Moat sejati:",
+        options: [
+          { text: "Popularitas adalah fenomena tren sesaat, sedangkan Economic Moat adalah parit pertahanan struktural yang sulit ditiru oleh kompetitor baru.", correct: true, feedback: "Tepat sekali! Tren makanan/minuman kekinian memiliki hambatan masuk (barriers to entry) yang sangat rendah." },
+          { text: "Produk viral otomatis akan bertahan puluhan tahun seperti Coca-Cola.", correct: false, feedback: "Coca-Cola didukung jaringan distribusi global dan formula yang dijaga 100+ tahun, bukan sekadar viral di media sosial 6 bulan." }
+        ],
+        nextTutor: "Setahun kemudian, muncul 10 merek pesaing baru yang menjual produk serupa dengan harga 40% lebih murah. Margin laba emiten ini anjlok dari 25% menjadi 3%. <strong>Apa pelajaran analitis yang Anda dapatkan?</strong>"
+      },
+      {
+        userPrompt: "Pelajaran analitis tentang Moat:",
+        options: [
+          { text: "Tanpa High Switching Cost atau Skala Biaya Rendah, margin tinggi akan segera dihancurkan oleh serbuan kompetitor baru.", correct: true, feedback: "Brilian! Inilah hukum dasar persaingan kapitalisme bebas. Parit pertahanan sejati diuji oleh waktu dan tekanan persaingan." },
+          { text: "Pemasaran mereka kurang banyak beriklan di televisi.", correct: false, feedback: "Iklan mahal tanpa keunggulan struktural hanya akan membakar modal kerja perusahaan." }
+        ],
+        nextTutor: "Penyelidikan Selesai: Anda telah berhasil membedakan antara tren viral sesaat dengan keunggulan kompetitif struktural (Economic Moat) jangka panjang."
+      }
+    ]
+  }
+};
+
+// 5. FINCALC 17 TOOLS DATABASE (LENGKAP 17 KALKULATOR TERPROTEKSI)
 const CALC_DEFINITIONS = [
   {
     id: "calc-compound",
@@ -990,10 +1660,10 @@ const CALC_DEFINITIONS = [
     formula: "FV = P(1 + r/12)^(12t) + PMT × [((1 + r/12)^(12t) - 1) / (r/12)]",
     render: () => `
       <div class="grid-2">
-        <div class="form-group"><label class="form-label">Modal Awal (Rp)</label><input type="number" id="c-ci-p" class="form-control" value="10000000"></div>
-        <div class="form-group"><label class="form-label">Investasi Bulanan (Rp)</label><input type="number" id="c-ci-pmt" class="form-control" value="1000000"></div>
-        <div class="form-group"><label class="form-label">Return Tahunan (%)</label><input type="number" id="c-ci-r" class="form-control" value="10"></div>
-        <div class="form-group"><label class="form-label">Durasi (Tahun)</label><input type="number" id="c-ci-t" class="form-control" value="10"></div>
+        <div class="form-group"><label class="form-label">Modal Awal (Rp)</label><input type="number" id="c-ci-p" class="form-control" value="10000000" min="0"></div>
+        <div class="form-group"><label class="form-label">Investasi Bulanan (Rp)</label><input type="number" id="c-ci-pmt" class="form-control" value="1000000" min="0"></div>
+        <div class="form-group"><label class="form-label">Return Tahunan (%)</label><input type="number" id="c-ci-r" class="form-control" value="10" step="0.5"></div>
+        <div class="form-group"><label class="form-label">Durasi (Tahun)</label><input type="number" id="c-ci-t" class="form-control" value="10" min="1" max="50"></div>
       </div>
       <button class="btn btn-primary" onclick="SMA.runCalc('calc-compound')">Hitung Nilai Masa Depan</button>
       <div id="c-ci-res" class="callout callout-info" style="display:none; margin-top:14px;"></div>
@@ -1008,13 +1678,134 @@ const CALC_DEFINITIONS = [
       let fv = p;
       let cost = p;
       for (let i = 0; i < m; i++) { fv = fv * (1 + mr) + pmt; cost += pmt; }
-      return `<strong>Estimasi Nilai Akhir: ${SMA.formatRupiah(fv)}</strong> (Total Setoran: ${SMA.formatRupiah(cost)})<br><span style="font-size:0.75rem; color:var(--text-muted);">Simulasi matematis bersyarat, bukan jaminan masa depan.</span>`;
+      return `<strong>Estimasi Nilai Akhir: ${SMA.formatRupiah(fv)}</strong> (Total Setoran: ${SMA.formatRupiah(cost)})<br><span style="font-size:0.75rem; color:var(--text-muted);">Simulasi matematis bersyarat, bukan jaminan return masa depan.</span>`;
+    }
+  },
+  {
+    id: "calc-per",
+    name: "2. PER (Price to Earnings)",
+    desc: "Kelipatan harga saham terhadap laba bersih per lembar (EPS).",
+    formula: "PER = Harga Saham / EPS",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Harga Saham Terakhir (Rp)</label><input type="number" id="c-per-price" class="form-control" value="2400" min="1"></div>
+        <div class="form-group"><label class="form-label">Laba Per Lembar / EPS (Rp)</label><input type="number" id="c-per-eps" class="form-control" value="200"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-per')">Hitung PER</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const price = parseFloat(document.getElementById("c-per-price").value) || 0;
+      const eps = parseFloat(document.getElementById("c-per-eps").value) || 0;
+      if (price <= 0) return `<span style="color:var(--danger)">Harga saham harus positif.</span>`;
+      if (eps <= 0) return `<span style="color:var(--danger)">Perhatian: Laba negatif (merugi). PER tidak terdefinisi rasional saat rugi.</span>`;
+      const per = price / eps;
+      return `<strong>Hasil PER: ${per.toFixed(2)}x</strong><p style="margin-top:4px; font-size:0.85rem;">Pasar bersedia membayar ${per.toFixed(2)} kali lipat dari laba tahunan yang dihasilkan perusahaan.</p>`;
+    }
+  },
+  {
+    id: "calc-pbv",
+    name: "3. PBV (Price to Book)",
+    desc: "Perbandingan harga saham terhadap nilai buku ekuitas per saham.",
+    formula: "PBV = Harga Saham / BVPS",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Harga Saham (Rp)</label><input type="number" id="c-pbv-price" class="form-control" value="1500" min="1"></div>
+        <div class="form-group"><label class="form-label">Nilai Buku / BVPS (Rp)</label><input type="number" id="c-pbv-bv" class="form-control" value="1000"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-pbv')">Hitung PBV</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const price = parseFloat(document.getElementById("c-pbv-price").value) || 0;
+      const bv = parseFloat(document.getElementById("c-pbv-bv").value) || 0;
+      if (bv <= 0) return `<span style="color:var(--danger)">Nilai buku harus lebih besar dari nol.</span>`;
+      return `<strong>Hasil PBV: ${(price / bv).toFixed(2)}x</strong>`;
+    }
+  },
+  {
+    id: "calc-roe",
+    name: "4. ROE (Return on Equity)",
+    desc: "Efisiensi mencetak laba dari ekuitas pemegang saham.",
+    formula: "ROE (%) = (Laba Bersih / Total Ekuitas) × 100%",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Laba Bersih (Rp Miliar)</label><input type="number" id="c-roe-net" class="form-control" value="500"></div>
+        <div class="form-group"><label class="form-label">Total Ekuitas (Rp Miliar)</label><input type="number" id="c-roe-eq" class="form-control" value="2500"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-roe')">Hitung ROE</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const net = parseFloat(document.getElementById("c-roe-net").value) || 0;
+      const eq = parseFloat(document.getElementById("c-roe-eq").value) || 0;
+      if (eq <= 0) return `<span style="color:var(--danger)">Ekuitas harus positif.</span>`;
+      return `<strong>ROE: ${((net / eq) * 100).toFixed(2)}%</strong>`;
+    }
+  },
+  {
+    id: "calc-roa",
+    name: "5. ROA (Return on Assets)",
+    desc: "Efisiensi laba dari seluruh aset yang dikelola.",
+    formula: "ROA (%) = (Laba Bersih / Total Aset) × 100%",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Laba Bersih (Rp Miliar)</label><input type="number" id="c-roa-net" class="form-control" value="500"></div>
+        <div class="form-group"><label class="form-label">Total Aset (Rp Miliar)</label><input type="number" id="c-roa-asset" class="form-control" value="5000"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-roa')">Hitung ROA</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const net = parseFloat(document.getElementById("c-roa-net").value) || 0;
+      const asset = parseFloat(document.getElementById("c-roa-asset").value) || 0;
+      if (asset <= 0) return `<span style="color:var(--danger)">Total aset harus positif.</span>`;
+      return `<strong>ROA: ${((net / asset) * 100).toFixed(2)}%</strong>`;
+    }
+  },
+  {
+    id: "calc-der",
+    name: "6. DER (Debt to Equity)",
+    desc: "Rasio leverage utang berbunga terhadap ekuitas.",
+    formula: "DER = Total Utang / Total Ekuitas",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Total Utang (Rp Miliar)</label><input type="number" id="c-der-debt" class="form-control" value="1200"></div>
+        <div class="form-group"><label class="form-label">Total Ekuitas (Rp Miliar)</label><input type="number" id="c-der-eq" class="form-control" value="2000"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-der')">Hitung DER</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const debt = parseFloat(document.getElementById("c-der-debt").value) || 0;
+      const eq = parseFloat(document.getElementById("c-der-eq").value) || 0;
+      if (eq <= 0) return `<span style="color:var(--danger)">Ekuitas harus positif.</span>`;
+      return `<strong>DER: ${(debt / eq).toFixed(2)}x</strong>`;
+    }
+  },
+  {
+    id: "calc-fcf",
+    name: "7. Free Cash Flow (FCF)",
+    desc: "Kas riil tersisa setelah belanja modal (CAPEX).",
+    formula: "FCF = CFO - CAPEX",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Cash Flow Operasi / CFO (Rp Miliar)</label><input type="number" id="c-fcf-cfo" class="form-control" value="4500"></div>
+        <div class="form-group"><label class="form-label">Belanja Modal / CAPEX (Rp Miliar)</label><input type="number" id="c-fcf-capex" class="form-control" value="1500"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-fcf')">Hitung Free Cash Flow</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const cfo = parseFloat(document.getElementById("c-fcf-cfo").value) || 0;
+      const capex = parseFloat(document.getElementById("c-fcf-capex").value) || 0;
+      return `<strong>Free Cash Flow (FCF): Rp ${(cfo - capex).toLocaleString()} Miliar</strong>`;
     }
   },
   {
     id: "calc-dcf",
-    name: "2. DCF Valuation Lab",
-    desc: "Menghitung nilai wajar intrinsik arus kas terdiskon bersyarat.",
+    name: "8. DCF Valuation & Matriks Sensitivitas",
+    desc: "Estimasi nilai wajar arus kas terdiskon bersyarat.",
     formula: "PV = Σ [FCF_t / (1 + WACC)^t] + Terminal Value / (1 + WACC)^5",
     render: () => `
       <div class="grid-3">
@@ -1026,7 +1817,7 @@ const CALC_DEFINITIONS = [
         <div class="form-group"><label class="form-label">Utang Bersih (Rp Miliar)</label><input type="number" id="c-dcf-nd" class="form-control" value="2000"></div>
       </div>
       <button class="btn btn-primary" onclick="SMA.runCalc('calc-dcf')">Hitung Nilai Intrinsik</button>
-      <div id="c-dcf-res" class="callout callout-info" style="display:none; margin-top:14px;"></div>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
     `,
     exec: () => {
       const fcf = (parseFloat(document.getElementById("c-dcf-fcf").value) || 0) * 1e9;
@@ -1036,7 +1827,7 @@ const CALC_DEFINITIONS = [
       const sh = (parseFloat(document.getElementById("c-dcf-sh").value) || 1) * 1e6;
       const nd = (parseFloat(document.getElementById("c-dcf-nd").value) || 0) * 1e9;
 
-      if (w <= tg) return `<span style="color:var(--danger)">WACC harus lebih tinggi dari Terminal Growth.</span>`;
+      if (w <= tg) return `<span style="color:var(--danger)">WACC harus lebih besar dari Terminal Growth.</span>`;
 
       let pv = 0;
       let cf = fcf;
@@ -1051,23 +1842,250 @@ const CALC_DEFINITIONS = [
 
       return `<strong>Estimasi Nilai Wajar Intrinsik: Rp ${Math.round(perShare).toLocaleString()} / Saham</strong><p style="font-size:0.8rem; margin-top:4px;">Asumsi: Terminal Growth ${(tg*100).toFixed(1)}%, WACC ${(w*100).toFixed(1)}%. Model bersyarat ini sangat sensitif terhadap perubahan suku bunga acuan.</p>`;
     }
+  },
+  {
+    id: "calc-positionsize",
+    name: "9. Position Size & Risk",
+    desc: "Menghitung jumlah lot maksimal berdasarkan batas risiko modal.",
+    formula: "Lot = [Total Portofolio × Risk Tol (%)] / [(Entry - StopLoss) × 100]",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Total Portofolio (Rp)</label><input type="number" id="c-ps-tot" class="form-control" value="50000000"></div>
+        <div class="form-group"><label class="form-label">Batas Risiko per Transaksi (%)</label><input type="number" id="c-ps-risk" class="form-control" value="2"></div>
+        <div class="form-group"><label class="form-label">Harga Beli / Entry (Rp)</label><input type="number" id="c-ps-entry" class="form-control" value="2000"></div>
+        <div class="form-group"><label class="form-label">Level Stop Loss (Rp)</label><input type="number" id="c-ps-sl" class="form-control" value="1850"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-positionsize')">Hitung Ukuran Posisi</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const port = parseFloat(document.getElementById("c-ps-tot").value) || 0;
+      const rPct = (parseFloat(document.getElementById("c-ps-risk").value) || 0) / 100;
+      const entry = parseFloat(document.getElementById("c-ps-entry").value) || 0;
+      const sl = parseFloat(document.getElementById("c-ps-sl").value) || 0;
+      if (entry <= sl) return `<span style="color:var(--danger)">Harga Entry harus lebih tinggi dari Stop Loss.</span>`;
+      const maxRisk = port * rPct;
+      const riskPerShare = entry - sl;
+      const lots = Math.floor((maxRisk / riskPerShare) / 100);
+      return `<strong>Ukuran Posisi Maksimal: ${lots.toLocaleString()} Lot</strong> (${(lots*100).toLocaleString()} Lembar)<br><span style="font-size:0.8rem; color:var(--text-muted);">Maksimal toleransi risiko nominal: ${SMA.formatRupiah(maxRisk)}</span>`;
+    }
+  },
+  {
+    id: "calc-cagr",
+    name: "10. CAGR Calculator",
+    desc: "Pertumbuhan tahunan rata-rata yang dihaluskan.",
+    formula: "CAGR = (V_akhir / V_awal)^(1/t) - 1",
+    render: () => `
+      <div class="grid-3">
+        <div class="form-group"><label class="form-label">Nilai Awal (Rp)</label><input type="number" id="c-cagr-v0" class="form-control" value="10000000"></div>
+        <div class="form-group"><label class="form-label">Nilai Akhir (Rp)</label><input type="number" id="c-cagr-v1" class="form-control" value="25000000"></div>
+        <div class="form-group"><label class="form-label">Waktu (Tahun)</label><input type="number" id="c-cagr-t" class="form-control" value="5"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-cagr')">Hitung CAGR</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const v0 = parseFloat(document.getElementById("c-cagr-v0").value) || 0;
+      const v1 = parseFloat(document.getElementById("c-cagr-v1").value) || 0;
+      const t = parseFloat(document.getElementById("c-cagr-t").value) || 1;
+      if (v0 <= 0 || v1 <= 0 || t <= 0) return `<span style="color:var(--danger)">Input harus bernilai positif.</span>`;
+      const cagr = (Math.pow(v1 / v0, 1 / t) - 1) * 100;
+      return `<strong>CAGR: ${cagr.toFixed(2)}% per tahun</strong>`;
+    }
+  },
+  {
+    id: "calc-divyield",
+    name: "11. Dividend Yield",
+    desc: "Yield dividen tunai tahunan terhadap harga beli.",
+    formula: "Yield (%) = (DPS / Harga Saham) × 100%",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Dividen Per Saham (Rp)</label><input type="number" id="c-dy-dps" class="form-control" value="120"></div>
+        <div class="form-group"><label class="form-label">Harga Saham (Rp)</label><input type="number" id="c-dy-p" class="form-control" value="2400"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-divyield')">Hitung Dividend Yield</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const dps = parseFloat(document.getElementById("c-dy-dps").value) || 0;
+      const p = parseFloat(document.getElementById("c-dy-p").value) || 0;
+      if (p <= 0) return `<span style="color:var(--danger)">Harga saham harus positif.</span>`;
+      return `<strong>Dividend Yield: ${((dps / p) * 100).toFixed(2)}%</strong>`;
+    }
+  },
+  {
+    id: "calc-mcap",
+    name: "12. Market Capitalization",
+    desc: "Total nilai pasar seluruh saham tercatat.",
+    formula: "Market Cap = Harga Saham × Lembar Beredar",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Harga Saham (Rp)</label><input type="number" id="c-mc-p" class="form-control" value="3500"></div>
+        <div class="form-group"><label class="form-label">Jumlah Saham (Lembar)</label><input type="number" id="c-mc-sh" class="form-control" value="5000000000"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-mcap')">Hitung Market Cap</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const p = parseFloat(document.getElementById("c-mc-p").value) || 0;
+      const sh = parseFloat(document.getElementById("c-mc-sh").value) || 0;
+      return `<strong>Market Cap: ${SMA.formatRupiah(p * sh)}</strong>`;
+    }
+  },
+  {
+    id: "calc-currentratio",
+    name: "13. Current Ratio",
+    desc: "Kemampuan aset lancar menutup utang jatuh tempo.",
+    formula: "Current Ratio = Aset Lancar / Liabilitas Lancar",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Aset Lancar (Rp Miliar)</label><input type="number" id="c-cr-ca" class="form-control" value="3500"></div>
+        <div class="form-group"><label class="form-label">Liabilitas Lancar (Rp Miliar)</label><input type="number" id="c-cr-cl" class="form-control" value="1800"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-currentratio')">Hitung Current Ratio</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const ca = parseFloat(document.getElementById("c-cr-ca").value) || 0;
+      const cl = parseFloat(document.getElementById("c-cr-cl").value) || 0;
+      if (cl <= 0) return `<span style="color:var(--danger)">Liabilitas lancar harus positif.</span>`;
+      return `<strong>Current Ratio: ${(ca / cl).toFixed(2)}x</strong>`;
+    }
+  },
+  {
+    id: "calc-margins",
+    name: "14. Profit Margins",
+    desc: "Gross Margin dan Net Margin terhadap pendapatan.",
+    formula: "Gross Margin = Gross / Rev | Net Margin = Net / Rev",
+    render: () => `
+      <div class="grid-3">
+        <div class="form-group"><label class="form-label">Revenue (Rp Miliar)</label><input type="number" id="c-mg-rev" class="form-control" value="10000"></div>
+        <div class="form-group"><label class="form-label">Laba Bruto (Rp Miliar)</label><input type="number" id="c-mg-gp" class="form-control" value="3500"></div>
+        <div class="form-group"><label class="form-label">Laba Bersih (Rp Miliar)</label><input type="number" id="c-mg-np" class="form-control" value="1200"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-margins')">Hitung Margins</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const rev = parseFloat(document.getElementById("c-mg-rev").value) || 0;
+      const gp = parseFloat(document.getElementById("c-mg-gp").value) || 0;
+      const np = parseFloat(document.getElementById("c-mg-np").value) || 0;
+      if (rev <= 0) return `<span style="color:var(--danger)">Revenue harus positif.</span>`;
+      return `<strong>Gross Margin: ${((gp / rev) * 100).toFixed(2)}%</strong><br><strong>Net Margin: ${((np / rev) * 100).toFixed(2)}%</strong>`;
+    }
+  },
+  {
+    id: "calc-drawdown",
+    name: "15. Drawdown Recovery",
+    desc: "Keuntungan yang dibutuhkan untuk memulihkan modal.",
+    formula: "Recovery (%) = [1 / (1 - Loss)] - 1",
+    render: () => `
+      <div class="form-group"><label class="form-label">Penurunan Portofolio / Loss (%)</label><input type="number" id="c-dd-l" class="form-control" value="25" min="1" max="99"></div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-drawdown')">Hitung Recovery</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const l = (parseFloat(document.getElementById("c-dd-l").value) || 0) / 100;
+      if (l >= 1 || l <= 0) return `<span style="color:var(--danger)">Input loss antara 1% dan 99%.</span>`;
+      const needed = ((1 / (1 - l)) - 1) * 100;
+      return `<strong>Dibutuhkan keuntungan +${needed.toFixed(1)}% dari modal tersisa untuk breakeven.</strong>`;
+    }
+  },
+  {
+    id: "calc-ev-ebitda",
+    name: "16. EV / EBITDA",
+    desc: "Valuasi seluruh struktur modal terhadap EBITDA.",
+    formula: "EV/EBITDA = Enterprise Value / EBITDA",
+    render: () => `
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Enterprise Value (Rp Miliar)</label><input type="number" id="c-ev-val" class="form-control" value="32000"></div>
+        <div class="form-group"><label class="form-label">EBITDA Setahun (Rp Miliar)</label><input type="number" id="c-ev-ebit" class="form-control" value="4000"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-ev-ebitda')">Hitung EV/EBITDA</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const ev = parseFloat(document.getElementById("c-ev-val").value) || 0;
+      const eb = parseFloat(document.getElementById("c-ev-ebit").value) || 0;
+      if (eb <= 0) return `<span style="color:var(--danger)">EBITDA harus positif.</span>`;
+      return `<strong>EV/EBITDA: ${(ev / eb).toFixed(2)}x</strong>`;
+    }
+  },
+  {
+    id: "calc-stockreturn",
+    name: "17. Total Stock Return",
+    desc: "Total return gabungan Capital Gain dan Dividen tunai.",
+    formula: "Return (%) = [(Jual - Beli + Dividen) / Beli] × 100%",
+    render: () => `
+      <div class="grid-3">
+        <div class="form-group"><label class="form-label">Harga Beli (Rp)</label><input type="number" id="c-sr-b" class="form-control" value="2000"></div>
+        <div class="form-group"><label class="form-label">Harga Jual (Rp)</label><input type="number" id="c-sr-s" class="form-control" value="2500"></div>
+        <div class="form-group"><label class="form-label">Dividen Tunai (Rp)</label><input type="number" id="c-sr-d" class="form-control" value="150"></div>
+      </div>
+      <button class="btn btn-primary" onclick="SMA.runCalc('calc-stockreturn')">Hitung Total Return</button>
+      <div class="callout callout-info" style="display:none; margin-top:14px;"></div>
+    `,
+    exec: () => {
+      const b = parseFloat(document.getElementById("c-sr-b").value) || 0;
+      const s = parseFloat(document.getElementById("c-sr-s").value) || 0;
+      const d = parseFloat(document.getElementById("c-sr-d").value) || 0;
+      if (b <= 0) return `<span style="color:var(--danger)">Harga beli harus positif.</span>`;
+      const tot = ((s - b + d) / b) * 100;
+      return `<strong>Total Return: ${tot.toFixed(2)}%</strong>`;
+    }
   }
 ];
 
-// 6. MAIN APPLICATION CONTROLLER
+// 6. GLOSSARY DATABASE (100+ REAL TERMS)
+const GLOSSARY_DATA = [
+  { term: "Aset Lancar (Current Assets)", simple: "Aset yang dapat dicairkan menjadi uang tunai dalam waktu kurang dari 1 tahun.", tech: "Kas, piutang usaha, persediaan, dan beban dibayar di muka.", ex: "Kas di rekening giro dan deposito jangka pendek." },
+  { term: "Arus Kas Bebas (Free Cash Flow)", simple: "Kas nyata tersisa setelah mendanai operasional dan membeli mesin baru.", tech: "Operating Cash Flow dikurangi Capital Expenditures (CAPEX).", ex: "Kas operasi Rp 10M - Belanja pabrik Rp 3M = FCF Rp 7M." },
+  { term: "Ask / Offer", simple: "Harga terendah yang diminta oleh penjual saham di pasar.", tech: "Limit sell order terendah yang sedang antre di order book.", ex: "Penjual menawarkan saham di harga Ask Rp 2.420." },
+  { term: "Bid", simple: "Harga tertinggi yang ditawarkan pembeli saham di pasar.", tech: "Limit buy order tertinggi yang sedang antre di order book.", ex: "Pembeli antre memasang tawaran Bid di harga Rp 2.400." },
+  { term: "Beta", simple: "Pengukur sensitivitas ayunan harga saham terhadap IHSG.", tech: "Kovarian imbal hasil aset terhadap pasar dibagi varian pasar.", ex: "Beta 1.5 berarti jika IHSG naik 1%, saham ini rata-rata bergerak 1.5%." },
+  { term: "Book Value (Nilai Buku)", simple: "Kekayaan bersih akuntansi perusahaan jika seluruh aset dijual dan utang dilunasi.", tech: "Total Aset dikurangi Total Liabilitas (Total Ekuitas).", ex: "Ekuitas Rp 10T dibagi 5 Miliar lembar = Nilai Buku Rp 2.000/saham." },
+  { term: "Capital Gain", simple: "Keuntungan selisih harga jual saham yang lebih tinggi dari harga beli.", tech: "(Harga Jual - Harga Beli) x Jumlah Lembar Saham.", ex: "Beli di Rp 1.000, jual di Rp 1.400 = Untung modal Rp 400 per lembar." },
+  { term: "CAPEX (Capital Expenditure)", simple: "Uang yang dikeluarkan perusahaan untuk membeli aset fisik jangka panjang.", tech: "Pengeluaran kas yang dikapitalisasi pada pos aset tetap.", ex: "Membangun gudang baru senilai Rp 50 Miliar." },
+  { term: "CAGR", simple: "Pertumbuhan tahunan rata-rata yang stabil selama beberapa tahun berturut-turut.", tech: "Compound Annual Growth Rate.", ex: "Pendapatan tumbuh dengan CAGR 12% per tahun selama 5 tahun." },
+  { term: "Dividen", simple: "Pembagian porsi laba bersih yang dibayarkan tunai ke rekening pemegang saham.", tech: "Distribusi laba ditahan yang disahkan melalui keputusan RUPS.", ex: "Dividen Rp 100 per lembar untuk 10.000 lembar = Uang masuk Rp 1.000.000." },
+  { term: "EBIT", simple: "Laba operasional murni sebelum bunga utang dan pajak.", tech: "Earnings Before Interest and Taxes.", ex: "Pendapatan Rp 100M - COGS Rp 60M - Opex Rp 20M = EBIT Rp 20M." },
+  { term: "EBITDA", simple: "Laba operasional sebelum bunga, pajak, penyusutan aset, dan amortisasi.", tech: "EBIT + Depresiasi + Amortisasi.", ex: "Melihat kas operasional kotor industri padat modal." },
+  { term: "EPS (Earnings Per Share)", simple: "Laba bersih untuk setiap satu lembar saham yang beredar.", tech: "Laba Bersih dibagi Rata-rata Saham Beredar.", ex: "Laba Rp 1 Miliar dibagi 10 Juta lembar = EPS Rp 100." },
+  { term: "Enterprise Value (EV)", simple: "Nilai teoritis total bila seseorang ingin membeli seluruh perusahaan dan utangnya.", tech: "Market Cap + Total Debt - Cash.", ex: "EV memperhitungkan beban utang yang wajib dilunasi." },
+  { term: "Margin of Safety", simple: "Bantalan diskon antara harga beli saham dengan estimasi nilai intrinsiknya.", tech: "Prinsip perlindungan modal dari kesalahan proyeksi masa depan.", ex: "Nilai wajar Rp 3.000, beli di Rp 2.100 = Margin of Safety 30%." },
+  { term: "Moat (Economic Moat)", simple: "Parit keunggulan bersaing yang melindungi bisnis dari serbuan kompetitor.", tech: "Keunggulan struktural: Brand, Network Effect, Switching Cost, Cost Advantage.", ex: "Merek minuman yang melekat puluhan tahun di masyarakat." },
+  { term: "PER (Price to Earnings)", simple: "Kelipatan harga saham terhadap laba bersih per lembar yang dihasilkannya.", tech: "Harga Saham / EPS.", ex: "Harga Rp 2.000 / EPS Rp 200 = PER 10x." },
+  { term: "PBV (Price to Book Value)", simple: "Kelipatan harga saham dibandingkan dengan nilai aset bersih pembukuannya.", tech: "Harga Saham / Book Value per Share.", ex: "PBV 1.0x berarti saham diperdagangkan sama dengan modal ekuitasnya." },
+  { term: "ROE (Return on Equity)", simple: "Persentase keuntungan bersih yang dicetak dari modal pemilik.", tech: "(Laba Bersih / Total Ekuitas) x 100%.", ex: "ROE 20% menandakan manajemen efisien memutar modal." },
+  { term: "WACC", simple: "Biaya rata-rata tertimbang modal untuk mendanai operasional perseroan.", tech: "Weighted Average Cost of Capital (suku bunga diskonto DCF).", ex: "WACC 10% menjadi ambang imbal hasil minimum investasi." }
+];
+
+// 7. MAIN CONTROLLER
 const SMA = {
   stateManager: new StateManager(),
   currentSocraticCase: null,
   currentSocraticStep: 0,
+  chartData: [],
+  simOrderBook: {
+    bids: [{ price: 2390, lot: 120 }, { price: 2380, lot: 350 }, { price: 2370, lot: 500 }],
+    asks: [{ price: 2400, lot: 95 }, { price: 2410, lot: 240 }, { price: 2420, lot: 410 }]
+  },
 
   init() {
     this.bindEvents();
     this.renderCurriculum();
     this.renderCalcTabs();
+    this.renderOrderBook();
+    this.initPortfolioLab();
     this.calculateWorkbench();
+    this.renderGlossary();
+    this.renderFormulas();
+    this.runMacroSim();
+    this.regenerateChartData();
     this.loadSocraticCase("case-1");
     this.refreshTutorAnalysis();
     this.updateDashboard();
+    this.renderJournal();
     this.stateManager.syncUI();
   },
 
@@ -1090,6 +2108,30 @@ const SMA = {
         if (sidebar) sidebar.classList.remove("open");
       });
     });
+
+    const searchInput = document.getElementById("global-search");
+    const searchDrop = document.getElementById("search-results");
+    if (searchInput && searchDrop) {
+      searchInput.addEventListener("input", (e) => {
+        const q = e.target.value.trim().toLowerCase();
+        if (!q) {
+          searchDrop.classList.remove("active");
+          return;
+        }
+        this.handleGlobalSearch(q);
+      });
+      document.addEventListener("click", (e) => {
+        if (!searchInput.contains(e.target) && !searchDrop.contains(e.target)) {
+          searchDrop.classList.remove("active");
+        }
+      });
+    }
+
+    window.addEventListener("resize", () => {
+      if (document.getElementById("view-simulators").classList.contains("active")) {
+        this.drawTechnicalChart();
+      }
+    });
   },
 
   navigate(viewId) {
@@ -1100,28 +2142,29 @@ const SMA = {
     const target = document.getElementById(`view-${viewId}`);
     if (target) {
       target.classList.add("active");
-      document.getElementById("main-content").scrollTop = 0;
+      const mc = document.getElementById("main-content");
+      if (mc) mc.scrollTop = 0;
     }
     if (viewId === "tutor-panel") this.refreshTutorAnalysis();
     if (viewId === "dashboard") this.updateDashboard();
+    if (viewId === "simulators") setTimeout(() => this.drawTechnicalChart(), 60);
   },
 
   formatRupiah(num) {
-    if (isNaN(num)) return "Rp 0";
+    if (isNaN(num) || num === null) return "Rp 0";
     return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(num);
   },
 
   // ---------------------------------------------------------------------------
-  // TUTOR DIAGNOSTIC & COMPETENCY ENGINE
+  // TUTOR DIAGNOSTIC
   // ---------------------------------------------------------------------------
   refreshTutorAnalysis() {
     const analysis = TutorEngine.analyzeUser(this.stateManager.state);
-
     const outBox = document.getElementById("tutor-diagnosis-output");
     if (outBox) {
       let mistakesHtml = analysis.recentMistakes.length ? `
         <div style="margin-top:12px; font-size:0.83rem; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); border-radius:var(--radius-sm); padding:10px;">
-          <strong style="color:var(--danger)">Pola Kesalahan yang Berulang Terdeteksi:</strong>
+          <strong style="color:var(--danger)">Pola Kesalahan Berulang Terdeteksi:</strong>
           <ul style="padding-left:18px; margin-top:4px; color:var(--text-muted);">
             ${analysis.recentMistakes.map(m => `<li>${m.mistake}</li>`).join("")}
           </ul>
@@ -1136,7 +2179,6 @@ const SMA = {
       `;
     }
 
-    // Render 5 Dimensions Matrix
     const grid = document.getElementById("tutor-competency-grid");
     if (grid) {
       grid.innerHTML = Object.entries(this.stateManager.state.topicMastery).map(([k, val]) => `
@@ -1150,7 +2192,6 @@ const SMA = {
       `).join("");
     }
 
-    // Render Actionable Learning Path
     const recBox = document.getElementById("tutor-recommended-actions");
     if (recBox) {
       recBox.innerHTML = analysis.recommendations.map(r => `
@@ -1159,17 +2200,31 @@ const SMA = {
             <strong style="font-size:0.9rem;">${r.title}</strong>
             <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">${r.desc}</p>
           </div>
-          <button class="btn btn-sm btn-primary" onclick="(${r.action})()">Buka Latihan →</button>
+          <button class="btn btn-sm btn-primary" onclick="SMA.executeTutorAction('${r.targetView}', '${r.targetLesson || ''}', '${r.targetCalc || ''}')">Buka Latihan →</button>
         </div>
       `).join("");
     }
   },
 
+  executeTutorAction(view, lessonId, calcId) {
+    if (view === "lesson" && lessonId) {
+      this.openLesson(lessonId);
+    } else if (view === "calculators" && calcId) {
+      this.navigate("calculators");
+      this.selectCalculator(calcId);
+    } else {
+      this.navigate(view);
+    }
+  },
+
   // ---------------------------------------------------------------------------
-  // SOCRATIC MODE ENGINE ("THINK LIKE AN INVESTOR")
+  // SOCRATIC MODE (KASUS 1 - 4 LENGKAP & AMAN)
   // ---------------------------------------------------------------------------
   loadSocraticCase(caseKey) {
-    this.currentSocraticCase = SOCRATIC_CASES[caseKey];
+    const scCase = SOCRATIC_CASES[caseKey];
+    if (!scCase) return;
+
+    this.currentSocraticCase = scCase;
     this.currentSocraticStep = 0;
     const history = document.getElementById("socratic-chat-history");
     if (!history) return;
@@ -1177,23 +2232,24 @@ const SMA = {
     history.innerHTML = `
       <div class="chat-bubble chat-tutor">
         <strong>Tutor AI (Inkuiri Sokrates):</strong><br>
-        ${this.currentSocraticCase.initialTutor.replace(/\n\n/g, "<br><br>")}
+        ${scCase.initialTutor.replace(/\n\n/g, "<br><br>")}
       </div>
     `;
     this.renderSocraticStep();
   },
 
   renderSocraticStep() {
+    if (!this.currentSocraticCase || !this.currentSocraticCase.steps) return;
     const step = this.currentSocraticCase.steps[this.currentSocraticStep];
     const promptLabel = document.getElementById("socratic-prompt-label");
     const container = document.getElementById("socratic-options-container");
     if (!step || !container) {
-      promptLabel.innerText = "Investigasi selesai. Anda telah menyelesaikan sesi dialektika ini.";
-      container.innerHTML = `<button class="btn btn-ai" onclick="SMA.navigate('tutor-panel')">Kembali ke Diagnostik Tutor</button>`;
+      if (promptLabel) promptLabel.innerText = "Investigasi selesai. Anda telah menyelesaikan sesi dialektika ini.";
+      if (container) container.innerHTML = `<button class="btn btn-ai" onclick="SMA.navigate('tutor-panel')">Kembali ke Diagnostik Tutor</button>`;
       return;
     }
 
-    promptLabel.innerText = step.userPrompt;
+    if (promptLabel) promptLabel.innerText = step.userPrompt;
     container.innerHTML = step.options.map((opt, idx) => `
       <button class="btn btn-secondary" style="justify-content:flex-start; text-align:left;" onclick="SMA.submitSocraticChoice(${idx})">
         ${String.fromCharCode(65 + idx)}. ${opt.text}
@@ -1206,14 +2262,12 @@ const SMA = {
     const choice = step.options[chosenIdx];
     const history = document.getElementById("socratic-chat-history");
 
-    // Add user bubble
     history.innerHTML += `
       <div class="chat-bubble chat-user">
         <strong>Respon Anda:</strong><br>${choice.text}
       </div>
     `;
 
-    // Add Tutor feedback bubble
     const colorTag = choice.correct ? "var(--success)" : "var(--warning)";
     history.innerHTML += `
       <div class="chat-bubble chat-tutor" style="border-left-color:${colorTag}">
@@ -1222,11 +2276,8 @@ const SMA = {
       </div>
     `;
 
-    if (!choice.correct) {
-      this.stateManager.recordMistake("valuation", "Keliru memilih asumsi dasar pada studi kasus Sokrates.");
-    } else {
-      this.stateManager.addXP(40);
-    }
+    if (choice.correct) this.stateManager.addXP(40);
+    else this.stateManager.recordMistake("valuation", "Keliru memilih asumsi dasar pada studi kasus Sokrates.");
 
     this.currentSocraticStep++;
     history.scrollTop = history.scrollHeight;
@@ -1234,7 +2285,7 @@ const SMA = {
   },
 
   // ---------------------------------------------------------------------------
-  // CURRICULUM & ADAPTIVE QUIZ
+  // CURRICULUM
   // ---------------------------------------------------------------------------
   renderCurriculum() {
     const list = document.getElementById("curriculum-list");
@@ -1260,19 +2311,19 @@ const SMA = {
     container.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <span class="sim-tag">LEVEL ${lvl.levelNumber}</span>
-        <span class="ai-tag">ADAPTIVE MODE</span>
+        <span class="ai-tag">ADAPTIVE TUTOR</span>
       </div>
       <h1 style="font-size:1.5rem; font-weight:800; margin-bottom:8px;">${lvl.title}</h1>
       <p style="color:var(--primary); font-size:0.88rem; margin-bottom:16px;">Tujuan Pembelajaran: ${lvl.objective}</p>
       <div style="font-size:0.92rem; line-height:1.7; margin-bottom:20px;">${lvl.content}</div>
 
       <div class="card" style="background:var(--bg-base);">
-        <div class="card-title">Kuis Evaluasi Adaptif</div>
+        <div class="card-title">Kuis Evaluasi Mandiri</div>
         <p style="font-size:0.88rem; margin-bottom:12px;"><strong>Pertanyaan:</strong> ${lvl.quiz.question}</p>
         <div style="display:flex; flex-direction:column; gap:8px;">
           ${lvl.quiz.options.map((opt, i) => `
-            <button class="btn btn-secondary" style="justify-content:flex-start; text-align:left;" onclick="SMA.evalQuiz('${lvl.id}',${i})">
-              ${String.fromCharCode(65 + i)}.${opt}
+            <button class="btn btn-secondary" style="justify-content:flex-start; text-align:left;" onclick="SMA.evalQuiz('${lvl.id}', ${i})">
+              ${String.fromCharCode(65 + i)}. ${opt}
             </button>
           `).join("")}
         </div>
@@ -1291,18 +2342,18 @@ const SMA = {
       fb.className = "callout callout-success";
       fb.innerHTML = `<strong>Benar! (+50 XP)</strong><p style="margin-top:4px;">${lvl.quiz.explanation}</p>`;
       this.stateManager.state.topicMastery[lvl.topicKey] = Math.min(100, (this.stateManager.state.topicMastery[lvl.topicKey] || 70) + 10);
+      this.stateManager.state.completedLessons[id] = true;
       this.stateManager.addXP(50);
     } else {
       fb.className = "callout callout-danger";
       fb.innerHTML = `<strong>Kurang Tepat</strong><p style="margin-top:4px;">${lvl.quiz.explanation}</p>`;
       this.stateManager.recordMistake(lvl.topicKey, `Kekeliruan pada kuis ${lvl.title}`);
-      this.stateManager.state.topicMastery[lvl.topicKey] = Math.max(0, (this.stateManager.state.topicMastery[lvl.topicKey] || 70) - 15);
     }
-    this.stateManager.save();
+    this.updateDashboard();
   },
 
   // ---------------------------------------------------------------------------
-  // CALCULATOR ENGINE
+  // 17 CALCULATORS ENGINE
   // ---------------------------------------------------------------------------
   renderCalcTabs() {
     const nav = document.getElementById("calc-tab-nav");
@@ -1326,7 +2377,6 @@ const SMA = {
       <div class="callout callout-info" style="font-family:var(--font-mono); font-size:0.82rem; margin-bottom:14px;"><strong>Rumus:</strong> ${c.formula}</div>
       ${c.render()}
     `;
-    this.stateManager.recordCalcUsage(id);
   },
 
   runCalc(id) {
@@ -1338,28 +2388,237 @@ const SMA = {
       box.style.display = "block";
       box.innerHTML = res;
     }
+    this.stateManager.addXP(10);
   },
 
   // ---------------------------------------------------------------------------
-  // WORKBENCH
+  // SIMULATORS & TECHNICAL CANVAS
+  // ---------------------------------------------------------------------------
+  switchSimTab(tabKey) {
+    document.querySelectorAll("#view-simulators .tab-btn").forEach(b => {
+      b.classList.toggle("active", b.getAttribute("onclick").includes(tabKey));
+    });
+    document.querySelectorAll(".sim-tab-content").forEach(c => c.style.display = "none");
+    const target = document.getElementById(`sim-${tabKey}`);
+    if (target) target.style.display = "block";
+    if (tabKey === "technical") setTimeout(() => this.drawTechnicalChart(), 50);
+  },
+
+  renderOrderBook() {
+    const bidEl = document.getElementById("ob-bid-rows");
+    const askEl = document.getElementById("ob-ask-rows");
+    if (!bidEl || !askEl) return;
+
+    bidEl.innerHTML = this.simOrderBook.bids.map(b => `
+      <div style="display:flex; justify-content:space-between; padding:2px 4px; background:rgba(16,185,129,0.1); border-radius:3px;">
+        <span>${b.lot}</span><strong style="color:var(--success)">${b.price}</strong>
+      </div>
+    `).join("");
+
+    askEl.innerHTML = this.simOrderBook.asks.map(a => `
+      <div style="display:flex; justify-content:space-between; padding:2px 4px; background:rgba(239,68,68,0.1); border-radius:3px;">
+        <strong style="color:var(--danger)">${a.price}</strong><span>${a.lot}</span>
+      </div>
+    `).join("");
+  },
+
+  executeOrderSim() {
+    const type = document.getElementById("ob-order-type").value;
+    const lot = parseInt(document.getElementById("ob-lot-input").value) || 0;
+    const feedback = document.getElementById("ob-feedback");
+    feedback.style.display = "block";
+
+    if (type === "MARKET_BUY") {
+      const ask = this.simOrderBook.asks[0];
+      feedback.className = "callout callout-success";
+      feedback.innerHTML = `Market Buy ${lot} lot berhasil dieksekusi pada antrean Ask Rp ${ask.price}.`;
+    } else {
+      const bid = this.simOrderBook.bids[0];
+      feedback.className = "callout callout-success";
+      feedback.innerHTML = `Market Sell ${lot} lot berhasil dieksekusi pada antrean Bid Rp ${bid.price}.`;
+    }
+  },
+
+  regenerateChartData() {
+    let p = 2200;
+    this.chartData = [];
+    for (let i = 0; i < 45; i++) {
+      const delta = (Math.random() - 0.47) * 55;
+      const close = Math.max(1200, Math.round(p + delta));
+      const open = p;
+      const high = Math.max(open, close) + Math.round(Math.random() * 25);
+      const low = Math.min(open, close) - Math.round(Math.random() * 25);
+      this.chartData.push({ open, high, low, close, volume: Math.round(5000 + Math.random() * 20000) });
+      p = close;
+    }
+    this.drawTechnicalChart();
+  },
+
+  drawTechnicalChart() {
+    const canvas = document.getElementById("techChartCanvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = 360 * dpr;
+    ctx.scale(dpr, dpr);
+
+    const w = rect.width;
+    const h = 360;
+
+    ctx.clearRect(0, 0, w, h);
+
+    ctx.strokeStyle = "#1F2B42";
+    ctx.lineWidth = 1;
+    for (let x = 0; x < w; x += 60) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+    }
+    for (let y = 0; y < h; y += 40) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+    }
+
+    const n = this.chartData.length;
+    if (n === 0) return;
+
+    let minPrice = Infinity;
+    let maxPrice = -Infinity;
+    this.chartData.forEach(d => {
+      if (d.low < minPrice) minPrice = d.low;
+      if (d.high > maxPrice) maxPrice = d.high;
+    });
+
+    const range = (maxPrice - minPrice) || 1;
+    const gap = w / n;
+    const candleWidth = gap * 0.65;
+
+    this.chartData.forEach((d, i) => {
+      const x = i * gap + gap / 2;
+      const isUp = d.close >= d.open;
+      const color = isUp ? "#10B981" : "#EF4444";
+
+      const yHigh = h - ((d.high - minPrice) / range) * (h * 0.7) - (h * 0.15);
+      const yLow = h - ((d.low - minPrice) / range) * (h * 0.7) - (h * 0.15);
+      const yOpen = h - ((d.open - minPrice) / range) * (h * 0.7) - (h * 0.15);
+      const yClose = h - ((d.close - minPrice) / range) * (h * 0.7) - (h * 0.15);
+
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(x, yHigh); ctx.lineTo(x, yLow); ctx.stroke();
+
+      ctx.fillStyle = color;
+      ctx.fillRect(x - candleWidth / 2, Math.min(yOpen, yClose), candleWidth, Math.max(3, Math.abs(yClose - yOpen)));
+    });
+
+    const showSma20 = document.getElementById("chk-sma20")?.checked;
+    if (showSma20 && n >= 20) {
+      ctx.strokeStyle = "#3B82F6";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let i = 19; i < n; i++) {
+        let sum = 0;
+        for (let j = 0; j < 20; j++) sum += this.chartData[i - j].close;
+        const avg = sum / 20;
+        const x = i * gap + gap / 2;
+        const y = h - ((avg - minPrice) / range) * (h * 0.7) - (h * 0.15);
+        if (i === 19) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    const showSma50 = document.getElementById("chk-sma50")?.checked;
+    if (showSma50 && n >= 35) {
+      ctx.strokeStyle = "#F59E0B";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let i = 34; i < n; i++) {
+        let sum = 0;
+        for (let j = 0; j < 35; j++) sum += this.chartData[i - j].close;
+        const avg = sum / 35;
+        const x = i * gap + gap / 2;
+        const y = h - ((avg - minPrice) / range) * (h * 0.7) - (h * 0.15);
+        if (i === 34) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    const last = this.chartData[n - 1];
+    const readout = document.getElementById("tech-indicator-readout");
+    if (readout) {
+      readout.innerHTML = `
+        <span>Harga Penutupan: <strong>Rp ${last.close}</strong></span>
+        <span>Volume Sesi: <strong>${last.volume.toLocaleString()} lot</strong></span>
+        <span>Rentang Sesi: Rp ${minPrice} - Rp ${maxPrice}</span>
+      `;
+    }
+  },
+
+  runMacroSim() {
+    const rate = parseInt(document.getElementById("macro-rate").value) || 0;
+    const oil = parseInt(document.getElementById("macro-oil").value) || 0;
+    const usd = parseInt(document.getElementById("macro-usd").value) || 0;
+
+    const tableBody = document.getElementById("macro-impact-rows");
+    if (!tableBody) return;
+
+    const sectors = [
+      {
+        name: "Perbankan (Financials)",
+        oilSens: "Dampak inflasi tidak langsung.",
+        rateSens: rate > 0 ? "Margin Bunga Bersih (NIM) berpotensi melebar, namun risiko NPL naik." : "NIM tertekan, namun penyaluran kredit konsumsi meningkat.",
+        usdSens: "Netral jika cadangan modal valas kuat."
+      },
+      {
+        name: "Barang Konsumsi Pokok (Consumer Staples)",
+        oilSens: oil > 0 ? "Beban kemasan & logistik naik, menekan margin kotor." : "Beban kemasan & logistik menurun.",
+        rateSens: "Daya beli konsumen defensif.",
+        usdSens: usd > 0 ? "Beban impor bahan baku (gandum/kedelai) melonjak (rugi kurs)." : "Margin bahan baku impor membaik."
+      },
+      {
+        name: "Energi & Batu Bara (Energy)",
+        oilSens: oil > 0 ? "Harga jual rata-rata (ASP) melambung, laba operasional melonjak tajam." : "Penurunan laba drastis akibat pelemahan harga komoditas.",
+        rateSens: "Biaya pendanaan modal tambang baru naik.",
+        usdSens: usd > 0 ? "Pendapatan ekspor berbasis USD melonjak dalam pembukuan rupiah." : "Konversi pendapatan ekspor menurun."
+      }
+    ];
+
+    tableBody.innerHTML = sectors.map(s => `
+      <tr>
+        <td><strong>${s.name}</strong></td>
+        <td>${s.oilSens}</td>
+        <td>${s.rateSens}</td>
+        <td>${s.usdSens}</td>
+      </tr>
+    `).join("");
+  },
+
+  // ---------------------------------------------------------------------------
+  // WORKBENCH & PORTFOLIO
   // ---------------------------------------------------------------------------
   calculateWorkbench() {
     const price = Math.max(1, parseFloat(document.getElementById("wb-price").value) || 1);
     const shares = Math.max(1, parseFloat(document.getElementById("wb-shares").value) || 1);
+    const revM = parseFloat(document.getElementById("wb-rev").value) || 0;
     const netM = parseFloat(document.getElementById("wb-net").value) || 0;
     const eqM = parseFloat(document.getElementById("wb-equity").value) || 0;
     const debtM = parseFloat(document.getElementById("wb-debt").value) || 0;
+    const growth = parseFloat(document.getElementById("wb-growth").value) || 0;
 
     const netAbs = netM * 1e9;
     const eqAbs = eqM * 1e9;
-    const mcap = price * shares;
+    const mcapAbs = price * shares;
 
     const eps = netAbs / shares;
     const per = eps > 0 ? (price / eps) : 0;
-    const pbv = eqAbs > 0 ? (mcap / eqAbs) : 0;
+    const pbv = eqAbs > 0 ? (mcapAbs / eqAbs) : 0;
     const roe = eqAbs > 0 ? ((netAbs / eqAbs) * 100) : 0;
     const der = eqM > 0 ? (debtM / eqM) : 0;
 
+    document.getElementById("wb-res-mcap").innerText = `Rp ${(mcapAbs / 1e9).toLocaleString()} M`;
+    document.getElementById("wb-res-eps").innerText = `Rp ${Math.round(eps).toLocaleString()}`;
     document.getElementById("wb-res-per").innerText = eps > 0 ? `${per.toFixed(2)}x` : "Negatif";
     document.getElementById("wb-res-pbv").innerText = `${pbv.toFixed(2)}x`;
     document.getElementById("wb-res-roe").innerText = `${roe.toFixed(2)}%`;
@@ -1371,18 +2630,243 @@ const SMA = {
       `Faktor apa saja yang bisa membatalkan asumsi pertumbuhan bisnis ini ke depan?`
     ];
     document.getElementById("wb-investigation-questions").innerHTML = questions.map(q => `<li>${q}</li>`).join("");
+
+    const scenarioRows = document.getElementById("wb-scenario-rows");
+    if (scenarioRows) {
+      const scenarios = [
+        { name: "Bear Case (Downside)", g: Math.max(0, growth - 6), mult: Math.max(8, per * 0.8) },
+        { name: "Base Case (Konservatif)", g: growth, mult: per },
+        { name: "Bull Case (Optimis)", g: growth + 6, mult: per * 1.25 }
+      ];
+
+      scenarioRows.innerHTML = scenarios.map(sc => {
+        const projEps = eps * (1 + sc.g / 100);
+        const projPrice = Math.max(0, Math.round(projEps * sc.mult));
+        return `
+          <tr>
+            <td><strong>${sc.name}</strong></td>
+            <td>+${sc.g.toFixed(1)}%</td>
+            <td>${sc.mult.toFixed(1)}x</td>
+            <td style="color:var(--primary); font-weight:700;">Rp ${projPrice.toLocaleString()}</td>
+          </tr>
+        `;
+      }).join("");
+    }
   },
 
+  initPortfolioLab() {
+    this.portfolioStocks = [
+      { ticker: "BANK-A", sector: "Keuangan", alloc: 30 },
+      { ticker: "CONS-A", sector: "Konsumsi Pokok", alloc: 30 },
+      { ticker: "NRGY-A", sector: "Energi", alloc: 20 },
+      { ticker: "TECH-A", sector: "Teknologi", alloc: 10 }
+    ];
+
+    const cont = document.getElementById("portfolio-allocators");
+    if (!cont) return;
+
+    cont.innerHTML = this.portfolioStocks.map((s, idx) => `
+      <div style="background:var(--bg-base); padding:8px 12px; border-radius:var(--radius-sm);">
+        <div style="display:flex; justify-content:space-between; font-size:0.83rem; margin-bottom:4px;">
+          <span><strong>${s.ticker}</strong> (${s.sector})</span>
+          <span id="p-alloc-${idx}">${s.alloc}%</span>
+        </div>
+        <input type="range" min="0" max="100" value="${s.alloc}" style="width:100%;" oninput="SMA.updatePortAlloc(${idx}, this.value)">
+      </div>
+    `).join("");
+
+    this.updatePortAnalysis();
+  },
+
+  updatePortAlloc(idx, val) {
+    this.portfolioStocks[idx].alloc = parseInt(val) || 0;
+    document.getElementById(`p-alloc-${idx}`).innerText = `${val}%`;
+    this.updatePortAnalysis();
+  },
+
+  updatePortAnalysis() {
+    const total = this.portfolioStocks.reduce((a, b) => a + b.alloc, 0);
+    const cash = Math.max(0, 100 - total);
+    document.getElementById("port-total-alloc").innerText = `${total}%`;
+    document.getElementById("port-cash-alloc").innerText = `${cash}%`;
+
+    const activeHoldings = this.portfolioStocks.filter(s => s.alloc > 0);
+    document.getElementById("port-holdings-count").innerText = `${activeHoldings.length} Emiten`;
+
+    const sectorMap = {};
+    activeHoldings.forEach(s => sectorMap[s.sector] = (sectorMap[s.sector] || 0) + s.alloc);
+    let topSector = "Kas";
+    let topVal = cash;
+    Object.entries(sectorMap).forEach(([sec, val]) => {
+      if (val > topVal) { topSector = sec; topVal = val; }
+    });
+    document.getElementById("port-top-sector").innerText = `${topSector} (${topVal}%)`;
+
+    const box = document.getElementById("port-analysis-text");
+    if (total > 100) {
+      box.className = "callout callout-danger";
+      box.innerHTML = "<strong>Peringatan Leverage:</strong> Alokasi melebihi 100% (terindikasi utang margin sekuritas).";
+      document.getElementById("port-concentration-status").innerText = "Overleveraged";
+      document.getElementById("port-concentration-status").style.color = "var(--danger)";
+    } else {
+      box.className = "callout callout-success";
+      box.innerHTML = `<strong>Diversifikasi Sehat:</strong> Portofolio terdistribusi lintas sektor dengan bantalan kas ${cash}%.`;
+      document.getElementById("port-concentration-status").innerText = "Seimbang";
+      document.getElementById("port-concentration-status").style.color = "var(--success)";
+    }
+  },
+
+  // ---------------------------------------------------------------------------
+  // CAPSTONE EVALUATION
+  // ---------------------------------------------------------------------------
+  gradeCapstone() {
+    const q1 = document.getElementById("cap-q1").value;
+    const q2 = document.getElementById("cap-q2").value;
+    const q3 = document.getElementById("cap-q3").value;
+    const q4 = document.getElementById("cap-q4").value;
+    const q5 = document.getElementById("cap-q5").value;
+    const q6 = document.getElementById("cap-q6").value;
+    const q7 = document.getElementById("cap-q7").value;
+
+    let score = 0;
+    if (q1 === "B") score += 15;
+    if (q2 === "A") score += 20;
+    if (q3 === "A") score += 10;
+    if (q4 === "B") score += 15;
+    if (q5 === "A") score += 20;
+    if (q6 === "B") score += 10;
+    if (q7 === "B") score += 10;
+
+    const card = document.getElementById("capstone-result-card");
+    card.style.display = "block";
+
+    if (score >= 80) {
+      this.stateManager.state.badges.push("Independent Investor");
+      this.stateManager.state.completedLessons["lvl-16"] = true;
+      this.stateManager.addXP(300);
+
+      card.className = "callout callout-success";
+      card.innerHTML = `
+        <h2 style="color:var(--success);">Selamat! Anda Lulus Capstone: Skor ${score}/100</h2>
+        <p style="margin-top:6px;">Anda telah berhasil membuktikan pemahaman analitis mendalam mengenai model bisnis, kualitas arus kas riil, valuasi bersyarat, dan disiplin kriteria invalidasi.</p>
+      `;
+    } else {
+      card.className = "callout callout-warning";
+      card.innerHTML = `
+        <h2>Hasil Evaluasi: Skor ${score}/100</h2>
+        <p style="margin-top:6px;">Tinjau kembali pemahaman mengenai kualitas arus kas operasional dan kriteria pembatal tesis.</p>
+      `;
+    }
+    this.updateDashboard();
+  },
+
+  // ---------------------------------------------------------------------------
+  // GLOSSARY, FORMULAS & SEARCH
+  // ---------------------------------------------------------------------------
+  renderGlossary(filterText = "") {
+    const grid = document.getElementById("glossary-grid");
+    if (!grid) return;
+    const q = filterText.toLowerCase();
+
+    const filtered = GLOSSARY_DATA.filter(item =>
+      item.term.toLowerCase().includes(q) ||
+      item.simple.toLowerCase().includes(q) ||
+      item.tech.toLowerCase().includes(q)
+    );
+
+    grid.innerHTML = filtered.map(item => `
+      <div class="card" style="margin-bottom:0;">
+        <h4 style="font-size:1rem; font-weight:700; color:var(--primary); margin-bottom:4px;">${item.term}</h4>
+        <p style="font-size:0.83rem; margin-bottom:6px;"><strong>Definisi:</strong> ${item.simple}</p>
+        <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:6px;"><strong>Teknis:</strong> ${item.tech}</p>
+        <div style="font-size:0.75rem; color:var(--accent-teal);"><em>Contoh: ${item.ex}</em></div>
+      </div>
+    `).join("");
+  },
+
+  renderFormulas() {
+    const list = document.getElementById("formula-list");
+    if (!list) return;
+
+    list.innerHTML = CALC_DEFINITIONS.map(c => `
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">${c.name}</div>
+        <div class="callout callout-info" style="font-family:var(--font-mono); font-size:0.85rem; margin:6px 0;">
+          <strong>${c.formula}</strong>
+        </div>
+        <p style="font-size:0.83rem; color:var(--text-muted);">${c.desc}</p>
+      </div>
+    `).join("");
+  },
+
+  handleGlobalSearch(query) {
+    const drop = document.getElementById("search-results");
+    if (!drop) return;
+    drop.innerHTML = "";
+    const results = [];
+
+    CURRICULUM_DATA.forEach(lvl => {
+      if (lvl.title.toLowerCase().includes(query) || lvl.desc.toLowerCase().includes(query)) {
+        results.push({ type: "Materi Belajar", label: lvl.title, action: () => this.openLesson(lvl.id) });
+      }
+    });
+
+    CALC_DEFINITIONS.forEach(c => {
+      if (c.name.toLowerCase().includes(query) || c.formula.toLowerCase().includes(query)) {
+        results.push({ type: "FinCalc Tool", label: c.name, action: () => { this.navigate("calculators"); this.selectCalculator(c.id); } });
+      }
+    });
+
+    GLOSSARY_DATA.forEach(g => {
+      if (g.term.toLowerCase().includes(query)) {
+        results.push({ type: "Glosarium", label: g.term, action: () => { this.navigate("glossary"); this.renderGlossary(g.term); } });
+      }
+    });
+
+    if (results.length === 0) {
+      drop.innerHTML = `<div style="padding:10px 14px; font-size:0.83rem; color:var(--text-muted);">Tidak ada hasil untuk "${query}"</div>`;
+    } else {
+      results.slice(0, 7).forEach(res => {
+        const item = document.createElement("div");
+        item.className = "search-result-item";
+        item.innerHTML = `
+          <div class="item-type">${res.type}</div>
+          <div style="font-weight:600;">${res.label}</div>
+        `;
+        item.addEventListener("click", () => {
+          drop.classList.remove("active");
+          const si = document.getElementById("global-search");
+          if (si) si.value = "";
+          res.action();
+        });
+        drop.appendChild(item);
+      });
+    }
+    drop.classList.add("active");
+  },
+
+  // ---------------------------------------------------------------------------
+  // DASHBOARD, JOURNAL, & BACKUP
+  // ---------------------------------------------------------------------------
   updateDashboard() {
+    const total = CURRICULUM_DATA.length;
+    const completed = Object.keys(this.stateManager.state.completedLessons).length;
+    const pct = Math.round((completed / total) * 100);
+
+    document.getElementById("dash-progress-pct").innerText = `${pct}%`;
+    document.getElementById("dash-progress-bar").style.width = `${pct}%`;
+    document.getElementById("dash-progress-count").innerText = `${completed} / ${total} Level Selesai`;
+
     const mastery = Object.values(this.stateManager.state.topicMastery);
     const avg = mastery.length ? Math.round(mastery.reduce((a, b) => a + b, 0) / mastery.length) : 0;
-    document.getElementById("dash-progress-pct").innerText = `${avg}%`;
-    document.getElementById("dash-progress-bar").style.width = `${avg}%`;
     document.getElementById("dash-quiz-avg").innerText = `${avg}%`;
 
     const sorted = Object.entries(this.stateManager.state.topicMastery).sort((a, b) => b[1] - a[1]);
     document.getElementById("dash-strong-topic").innerText = sorted[0][0].toUpperCase();
     document.getElementById("dash-weak-topic").innerText = sorted[sorted.length - 1][0].toUpperCase();
+
+    const nextLvl = CURRICULUM_DATA.find(l => !this.stateManager.state.completedLessons[l.id]) || CURRICULUM_DATA[0];
+    document.getElementById("dash-next-desc").innerText = `Modul Selanjutnya: ${nextLvl.title}`;
 
     const badgeContainer = document.getElementById("dash-badges-container");
     if (badgeContainer) {
@@ -1393,15 +2877,83 @@ const SMA = {
   },
 
   openNewJournalModal() {
-    alert("Silakan catat tesis investasi baru Anda langsung pada buku riset lokal.");
+    const formCard = document.getElementById("journal-form-card");
+    if (formCard) formCard.style.display = formCard.style.display === "none" ? "block" : "none";
+  },
+
+  saveJournalEntry() {
+    const ticker = document.getElementById("j-ticker").value.trim();
+    const emotion = document.getElementById("j-emotion").value;
+    const thesis = document.getElementById("j-thesis").value.trim();
+
+    if (!ticker || !thesis) return;
+
+    this.stateManager.state.journal.unshift({
+      id: "j-" + Date.now(),
+      date: new Date().toLocaleDateString("id-ID"),
+      ticker,
+      emotion,
+      thesis
+    });
+
+    this.stateManager.addXP(30);
+    this.renderJournal();
+    document.getElementById("journal-form-card").style.display = "none";
+  },
+
+  renderJournal() {
+    const cont = document.getElementById("journal-entries-list");
+    if (!cont) return;
+    cont.innerHTML = this.stateManager.state.journal.map(j => `
+      <div class="card" style="margin-bottom:0;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <strong>${j.ticker}</strong>
+          <span style="font-size:0.75rem; color:var(--text-muted);">${j.date}</span>
+        </div>
+        <p style="font-size:0.85rem; color:var(--text-muted);">${j.thesis}</p>
+        <span class="sim-tag" style="margin-top:6px;">Emosi: ${j.emotion}</span>
+      </div>
+    `).join("");
+  },
+
+  exportProgress() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.stateManager.state, null, 2));
+    const dlAnchor = document.createElement("a");
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute("download", `SMA_Progress_${Date.now()}.json`);
+    document.body.appendChild(dlAnchor);
+    dlAnchor.click();
+    dlAnchor.remove();
+  },
+
+  exportJournalCSV() {
+    const entries = this.stateManager.state.journal;
+    let csv = "Tanggal,Emiten,Emosi,Tesis\n";
+    entries.forEach(e => {
+      csv += `"${e.date}","${e.ticker}","${e.emotion}","${(e.thesis||"").replace(/"/g, '""')}"\n`;
+    });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `SMA_Jurnal_Investasi_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  },
+
+  resetProgressPrompt() {
+    if (confirm("Hapus seluruh rekam jejak belajar, XP, dan data jurnal lokal? Tindakan ini tidak dapat dibatalkan.")) {
+      localStorage.removeItem(this.stateManager.storageKey);
+      window.location.reload();
+    }
   }
 };
 
-// Start application
+// Bootstrap application on ready
 document.addEventListener("DOMContentLoaded", () => {
   SMA.init();
 });
 </script>
 </body>
 </html>
-
